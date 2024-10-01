@@ -42,7 +42,7 @@ for c in range(len(CpfCiee)):
 for d in range(len(SCE.iloc[:,6])):
     CpfSce.append(conversorCpf(str(SCE.iloc[d,6])))
 
-with open('Resultado.txt','w') as resultado:
+with open('ResultadoAnaliseDados.txt','w') as resultado:
     for e in range(len(Diferenca)):
         if Diferenca[e] not in CpfSce:
             resultado.write(switch(0,0,Diferenca[e]) + '\n')
