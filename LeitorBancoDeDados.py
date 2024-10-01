@@ -1,4 +1,5 @@
 import pandas as pd
+from datetime import datetime
 
 SCE = pd.read_excel('SCE.xlsx')
 
@@ -16,5 +17,6 @@ def conversorCpf(aux):
 
 with open('ResultadoBancos.txt','w') as resultado:
     for a in range (len(SCE.iloc[:,28])):
-        if str(SCE.iloc[a,28]) == 'nan' and str(SCE.iloc[a,4]) != 'nan':
-            resultado.write(f'{SCE.iloc[a,4]} | {conversorCpf(str(SCE.iloc[a,6]))}\n')
+        if str(SCE.iloc[a,23]) != 'nan':
+            if str(SCE.iloc[a,28]) == 'nan' and datetime.strptime(str(SCE.iloc[a,23]).split(' a ')[-1],"%d/%m/%Y") >= datetime.strptime(str(datetime.now().strftime("%d/%m/%Y")),"%d/%m/%Y"):
+                resultado.write(f'{SCE.iloc[a,4]} | {conversorCpf(str(SCE.iloc[a,6]))}\n')
