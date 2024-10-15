@@ -3,7 +3,7 @@ AnaliseDeDados.py: Script criado para fazer a comparação de dois arquivos .xls
 
 Informações: Os dados utilizados para controle da aplicação são todos em .xlsx, inclusive os dados gerados pelo sistema, além disso, é criado um arquivo .txt com os dados encontrados que se divergem. 
 
-Situação: Finalizado.
+Situação: Em aberto.
 
 LeitorBancoDeDados.py: Script criado para ler uma base de dados e verificar quais pessoas possuem cadastro ativo, guiando-se pela data de desligamento.
 
