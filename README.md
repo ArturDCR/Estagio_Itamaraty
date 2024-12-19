@@ -1,12 +1,37 @@
 # Estagio_Itamaraty
-AnaliseDeDados.py: Script criado para fazer a comparação de dois arquivos .xlsx e encontrar dados que não estão presentes em ambos os arquivos, e com essa diferença, realizar outra verificação para saber quais dados estão presentes na base de dados do sistema. 
 
-Informações: Os dados utilizados para controle da aplicação são todos em .xlsx, inclusive os dados gerados pelo sistema, além disso, é criado um arquivo .txt com os dados encontrados que se divergem. 
+  Projeto dedicado ao estágio no Ministério das Relações Exteriores onde o objetivo central é facilitar a leitura, comparação e criação de arquivos excel utilizando uma interface gráfica de fácil manipulação e compreensão.
 
-Situação: Em aberto.
+> Status: Em desenvolvimento ⚙️🔨
 
-LeitorBancoDeDados.py: Script criado para ler uma base de dados e verificar quais pessoas possuem cadastro ativo, guiando-se pela data de desligamento.
+## Linguagem e bibliotecas utilizadas 🦾
+- [Python 3.12](https://www.python.org/downloads/)
 
-Informações: Os dados utilizados para controle da aplicação são todos em .xlsx, inclusive os dados gerados pelo sistema, além disso, é criado um arquivo .txt com os dados encontrados que possuem data de desligamento "nan", datas em branco.
+  **- - Bibliotecas - -**<br>
+  
+numpy==2.1.3<br>
+openpyxl==3.1.5<br>
+pandas==2.2.3<br>
+pillow==11.0.0<br>
+PyPDF2==3.0.1<br>
 
-Situação: Em aberto.
+
+Com <b>Python</b> instalado, faça a instalação das bibliotecas com os seguintes comandos no terminal:
+```bash
+pip install pandas
+pip install numpy
+pip install openpyxl
+pip install pillow
+pip install PyPDF2
+```
+
+## Execução 🖥️
+Clone o repositório deste projeto através da seguinte linha de código:
+```bash
+git clone https://github.com/unb-mds/2024-2-Squad14.git
+```  
+
+Execute o programa com:
+```bash
+python3 Main.py
+```
