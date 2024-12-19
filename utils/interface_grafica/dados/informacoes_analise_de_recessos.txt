@@ -1,0 +1,4 @@
+A analise de recessos tem como objetivo listar todos os recessos cadastrados
+nos bancos do sistma.
+
+Documentos necessários:
