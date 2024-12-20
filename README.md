@@ -28,7 +28,7 @@ pip install PyPDF2
 ## Execução 🖥️
 Clone o repositório deste projeto através da seguinte linha de código:
 ```bash
-git clone https://github.com/unb-mds/2024-2-Squad14.git
+git clone https://github.com/ArturDCR/Estagio_Itamaraty.git
 ```  
 
 Execute o programa com:
