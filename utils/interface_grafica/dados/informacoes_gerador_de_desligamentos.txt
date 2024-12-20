@@ -1,0 +1,6 @@
+o gerador de desligamentos tem como objetivo preencher a folha de desligamento
+do estágiario completa de acordo com os dados no sistema.
+
+Documentos necessários:
+    Lista MRE em formato XLSX.
+    Lista CIEE em formato XLSX.
