@@ -45,9 +45,11 @@ class Analise_de_descontos:
                         aux = 0
                         for e in range(len(descontos)):
                             aux = aux + float(descontos[e].replace(',','.'))
-                        if str(novas_linhas[6])[15:79] in self.__dados['siape_e_nome']:
-                            index = self.__dados['siape_e_nome'].index(str(novas_linhas[6])[15:79])
-                            self.__dados['desconto'][index] += aux
+                        for w in range(len(novas_linhas)):
+                            if str(novas_linhas[w]).__contains__("BANCO"):
+                                if str(novas_linhas[w])[15:79] in self.__dados['siape_e_nome']:
+                                    index = self.__dados['siape_e_nome'].index(str(novas_linhas[6])[15:79])
+                                    self.__dados['desconto'][index] += aux
                         else:
                             for j in range(len(novas_linhas)):
                                 if str(novas_linhas[j]).__contains__("BANCO"):
