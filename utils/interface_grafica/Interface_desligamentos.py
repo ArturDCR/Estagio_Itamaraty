@@ -20,6 +20,9 @@ class Interface_desligamentos:
         self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_Calculadora_de_Desligamentos('SCE'))
         self.__upload_sce_button.pack(pady=10)
 
+        self.__upload_recessos_button = tk.Button(self.__frame_botoes, text='Upload Recessos', command=lambda: self.__upload_file_Calculadora_de_Desligamentos('Recessos'))
+        self.__upload_recessos_button.pack(pady=10)
+
         self.__entrada_cpf = tk.Entry(self.__frame_botoes, font=('Arial', 14))
         self.__entrada_cpf.pack(pady=20)
         self.__entrada_cpf.insert(0, 'Insira um CPF')
@@ -89,6 +92,8 @@ class Interface_desligamentos:
                 new_file_name = 'Mre.xlsx'
             elif upload_type == 'SCE':
                 new_file_name = 'Sce.xlsx'
+            elif upload_type == 'Recessos':
+                new_file_name = 'Recessos.xlsx'
             else:
                 new_file_name = os.path.basename(file_path)
 

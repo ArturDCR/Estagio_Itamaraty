@@ -10,6 +10,7 @@ class Gerador_de_desligamentos:
         self.__SCE = pd.read_excel(os.path.join("utils/gerador_de_desligamentos/dados","Sce.xlsx"))
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser("~"), 'Downloads'), f"Desligamentos {datetime.now().strftime('%Y_%m_%d')}")
         self.__MODELO = os.path.join("utils/gerador_de_desligamentos/dados",'Modelo_desligamento.xlsx')
+        self.__RECESSOS = pd.read_excel(os.path.join("utils/gerador_de_desligamentos/dados","Recessos.xlsx"))
 
         self.__gerar_pasta_saida()
 
@@ -67,6 +68,7 @@ class Gerador_de_desligamentos:
                             aba['B7'] = '1125,69'
                         else:
                             aba['B7'] = '787,98'
+                        aba["C10"] = f"{str(self.__RECESSOS.iloc[0,2])}"
                         aux.save(os.path.join(self.__EXIT_PATH, f"{self.__desligados['Nome'][self.__desligados['CPF'].index(c)]}.xlsx"))
 
             else:
@@ -79,6 +81,7 @@ class Gerador_de_desligamentos:
                 aba['B7'] = f"{self.__desligados['Bolsa'][self.__desligados['CPF'].index(c)]}"
                 aba['E5'] = f"{self.__desligados['DataInicio'][self.__desligados['CPF'].index(c)]}"
                 aba['E6'] = f"{self.__desligados['DataFinal'][self.__desligados['CPF'].index(c)]}"
+                aba["C10"] = f"{str(self.__RECESSOS.iloc[0,2])}"
                 aux.save(os.path.join(self.__EXIT_PATH, f"{self.__desligados['Nome'][self.__desligados['CPF'].index(c)]}.xlsx"))
                 
     def __limpar_listas(self):
