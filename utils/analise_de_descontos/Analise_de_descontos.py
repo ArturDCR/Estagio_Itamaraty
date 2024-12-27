@@ -37,7 +37,6 @@ class Analise_de_descontos:
             novo_texto = nova_pagina.extract_text()
 
             novas_linhas = novo_texto.split('\n')
-            print(novas_linhas)
 
             for d in novas_linhas:
                 if d.__contains__('D E S C O N T O S'):
@@ -50,9 +49,15 @@ class Analise_de_descontos:
                             index = self.__dados['siape_e_nome'].index(str(novas_linhas[6])[15:79])
                             self.__dados['desconto'][index] += aux
                         else:
-                            self.__dados['siape_e_nome'].append(str(novas_linhas[6])[15:79])
-                            self.__dados['ano'].append(str(novas_linhas[2][:33]))
-                            self.__dados['emissao'].append(novas_linhas[1][109:])
+                            for j in range(len(novas_linhas)):
+                                if str(novas_linhas[j]).__contains__("BANCO"):
+                                    self.__dados['siape_e_nome'].append(str(novas_linhas[j])[15:79])
+                            for x in range(len(novas_linhas)):
+                                if str(novas_linhas[x][:33]).__contains__("FICHA FINANCEIRA REFERENTE A"):
+                                    self.__dados['ano'].append(str(novas_linhas[x][:33]))
+                            for y in range(len(novas_linhas)):
+                                if str(novas_linhas[y][109:]).__contains__("EMITIDO EM"):
+                                    self.__dados['emissao'].append(novas_linhas[y][109:])
                             self.__dados['desconto'].append(aux)
     def __gerar_saida(self):
         pd.DataFrame(self.__dados).to_excel(self.__EXIT_PATH, index=False)
@@ -61,7 +66,6 @@ class Analise_de_descontos:
     def __limpar_listas(self):
         for chave in self.__dados:
             self.__dados[chave].clear()
-
         self.__paginas.clear()
     
     def iniciar(self, ano):
