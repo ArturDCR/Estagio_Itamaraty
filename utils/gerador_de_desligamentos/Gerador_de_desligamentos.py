@@ -69,6 +69,10 @@ class Gerador_de_desligamentos:
                         else:
                             aba['B7'] = '787,98'
                         aba["C10"] = f"{str(self.__RECESSOS.iloc[0,2])}"
+                        if 30 - int((self.__MRE.iloc[d,27].strftime("%d"))) <= 1:
+                            aba['C21'] =  0
+                        else:
+                            aba['C21'] = 30 - int((self.__MRE.iloc[d,27].strftime("%d")))
                         aux.save(os.path.join(self.__EXIT_PATH, f"{self.__desligados['Nome'][self.__desligados['CPF'].index(c)]}.xlsx"))
 
             else:
