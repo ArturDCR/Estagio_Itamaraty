@@ -40,7 +40,7 @@ class Gerador_de_desligamentos:
         else:
             return str(cpf)
 
-    def __gerar_dados(self, cpf):
+    def __gerar_dados(self, cpf, data_alternativa):
         for a in range(len(self.__MRE.iloc[:,3])):
             self.__mre_cpf.append((self.__conversor_de_cpf(str(self.__MRE.iloc[a,4]))))
 
@@ -63,16 +63,23 @@ class Gerador_de_desligamentos:
                         aba['B3'] = c
                         aba['B4'] = f"{str(self.__MRE.iloc[d,2])}"
                         aba['E5'] = f"{self.__MRE.iloc[d,26].strftime("%d/%m/%Y")}"
-                        aba['E6'] = f"{(self.__MRE.iloc[d,27].strftime("%d/%m/%Y"))}"
+                        if data_alternativa == 'Insira data de deligamento alternativa' or data_alternativa == '':
+                            aba['E6'] = f"{(self.__MRE.iloc[d,27].strftime("%d/%m/%Y"))}"
+                            if 30 - int((self.__MRE.iloc[d,27].strftime("%d"))) <= 1:
+                                aba['C21'] =  0
+                            else:
+                                aba['C21'] = 30 - int((self.__MRE.iloc[d,27].strftime("%d")))
+                        else:
+                            aba['E6'] = data_alternativa
+                            if 30 - int(data_alternativa[:2]) <= 1:
+                                aba['C21'] =  0
+                            else:
+                                aba['C21'] = 30 - int(data_alternativa[:2])
                         if str(self.__MRE.iloc[d,17]) == 30:
                             aba['B7'] = '1125,69'
                         else:
                             aba['B7'] = '787,98'
                         aba["C10"] = f"{str(self.__RECESSOS.iloc[0,2])}"
-                        if 30 - int((self.__MRE.iloc[d,27].strftime("%d"))) <= 1:
-                            aba['C21'] =  0
-                        else:
-                            aba['C21'] = 30 - int((self.__MRE.iloc[d,27].strftime("%d")))
                         aux.save(os.path.join(self.__EXIT_PATH, f"{self.__desligados['Nome'][self.__desligados['CPF'].index(c)]}.xlsx"))
 
             else:
@@ -84,7 +91,18 @@ class Gerador_de_desligamentos:
                 aba['B4'] = f"XXX"
                 aba['B7'] = f"{self.__desligados['Bolsa'][self.__desligados['CPF'].index(c)]}"
                 aba['E5'] = f"{self.__desligados['DataInicio'][self.__desligados['CPF'].index(c)]}"
-                aba['E6'] = f"{self.__desligados['DataFinal'][self.__desligados['CPF'].index(c)]}"
+                if data_alternativa == 'Insira data de deligamento alternativa' or data_alternativa == '':
+                    aba['E6'] = f"{self.__desligados['DataFinal'][self.__desligados['CPF'].index(c)]}"
+                    if 30 - int(self.__desligados['DataFinal'][self.__desligados['CPF'].index(c)][:2]) <= 1:
+                        aba['C21'] =  0
+                    else:
+                        aba['C21'] = 30 - int(self.__desligados['DataFinal'][self.__desligados['CPF'].index(c)][:2])
+                else:
+                    aba['E6'] = data_alternativa
+                    if 30 - int(data_alternativa[:2]) <= 1:
+                        aba['C21'] =  0
+                    else:
+                        aba['C21'] = 30 - int(data_alternativa[:2])
                 aba["C10"] = f"{str(self.__RECESSOS.iloc[0,2])}"
                 aux.save(os.path.join(self.__EXIT_PATH, f"{self.__desligados['Nome'][self.__desligados['CPF'].index(c)]}.xlsx"))
                 
@@ -94,6 +112,6 @@ class Gerador_de_desligamentos:
 
         self.__mre_cpf.clear()
     
-    def iniciar(self, cpf):    
-        self.__gerar_dados(cpf)
+    def iniciar(self, cpf, data_alternativa):    
+        self.__gerar_dados(cpf, data_alternativa)
         self.__limpar_listas()

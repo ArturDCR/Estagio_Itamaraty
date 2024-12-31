@@ -26,8 +26,15 @@ class Interface_desligamentos:
         self.__entrada_cpf = tk.Entry(self.__frame_botoes, font=('Arial', 14))
         self.__entrada_cpf.pack(pady=20)
         self.__entrada_cpf.insert(0, 'Insira um CPF')
-        self.__entrada_cpf.bind("<Button-1>", self.__limpar_texto)
+        self.__entrada_cpf.bind("<Button-1>", self.__limpar_texto_cpf)
         self.__entrada_cpf.bind("<KeyRelease> ", self.__formatar_cpf)
+
+        self.__entrada_data = tk.Entry(self.__frame_botoes, font=('Arial', 14))
+        self.__entrada_data.pack(pady=20)
+        self.__entrada_data.config(width=30)
+        self.__entrada_data.insert(0, 'Insira data de deligamento alternativa')
+        self.__entrada_data.bind("<Button-1>", self.__limpar_texto_entrada)
+        self.__entrada_data.bind("<KeyRelease> ", self.__formatar_entrada_data)  
 
         self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado do Cálculo', command= self.__run_analyzer_Calculadora_de_Desligamentos)
         self.__analyze_button.pack(pady=10)
@@ -47,10 +54,17 @@ class Interface_desligamentos:
         if self.__entrada_cpf.get() == "":
             self.__entrada_cpf.insert(0, "Insira um CPF")
             self.__frame_botoes.focus()
+        if self.__entrada_data.get() == "":
+            self.__entrada_data.insert(0, "Insira data de deligamento alternativa")
+            self.__entrada_data.focus()
 
-    def __limpar_texto(self, event):
+    def __limpar_texto_cpf(self, event):
         if self.__entrada_cpf.get() == "Insira um CPF":
             self.__entrada_cpf.delete(0, tk.END)
+
+    def __limpar_texto_entrada(self, event):
+        if self.__entrada_data.get() == "Insira data de deligamento alternativa":
+            self.__entrada_data.delete(0, tk.END)
 
     def __formatar_cpf(self, event):
         cpf = self.__entrada_cpf.get()
@@ -68,7 +82,22 @@ class Interface_desligamentos:
 
         self.__entrada_cpf.delete(0, tk.END)
         self.__entrada_cpf.insert(0, cpf)
+    
+    def __formatar_entrada_data(self, event):
+        data = self.__entrada_data.get()
+
+        data = ''.join(filter(str.isdigit, data))
+
+        if len(data) <= 2:
+            data = data
+        elif len(data) <= 4:
+            data = f'{data[:2]}/{data[2:]}'
+        else:
+            data = f'{data[:2]}/{data[2:4]}/{data[4:8]}'
         
+        self.__entrada_data.delete(0, tk.END)
+        self.__entrada_data.insert(0, data)
+
     def __ler_arquivo(self):
         caminho_arquivo = "utils/interface_grafica/dados/informacoes_gerador_de_desligamentos.txt"
         try:
@@ -104,9 +133,16 @@ class Interface_desligamentos:
     def __run_analyzer_Calculadora_de_Desligamentos(self):
         try:
             desligamentos = Gerador_de_desligamentos()
-            self.__start_task(desligamentos.iniciar(str(self.__entrada_cpf.get())))
-            messagebox.showinfo('Sucesso', 'Verifique sua pasta de Downloads')
-            print('Calculadora de Desligamentos executado com sucesso.')
+            if str(self.__entrada_cpf.get()) != '' and str(self.__entrada_cpf.get()) != 'Insira um CPF' and len(self.__entrada_cpf.get()) == 14:
+                if str(self.__entrada_data.get()) == 'Insira data de deligamento alternativa':
+                    self.__start_task(desligamentos.iniciar(str(self.__entrada_cpf.get()), str(self.__entrada_data.get())))
+                    print(len(self.__entrada_cpf.get()))
+                else:
+                    self.__start_task(desligamentos.iniciar(str(self.__entrada_cpf.get()), str(self.__entrada_data.get())))
+                messagebox.showinfo('Sucesso', 'Verifique sua pasta de Downloads')
+                print('Calculadora de Desligamentos executado com sucesso.')
+            else:
+                messagebox.showerror('Erro', 'Digite um CPF válido')
         except subprocess.CalledProcessError:
             messagebox.showerror('Erro', 'Erro ao executar o Calculo de Desligamento.')
 
