@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import PyPDF2
+import re
 from datetime import datetime
 
 class Analise_de_descontos:
@@ -11,14 +12,13 @@ class Analise_de_descontos:
 
         self.__dados = {
             'siape_e_nome': [],
-            'ano' : [],
-            'emissao' : [],
-            'desconto' : []
+            'desconto_AT' : [],
+            'desconto_BE' :[]
         }
 
         self.__paginas = []
     
-    def __alimentar_paginas(self, ano):
+    def __alimentar_paginas(self):
         for a in range(len(self.__PDF.pages)):
             pagina = self.__PDF.pages[a]
 
@@ -27,7 +27,7 @@ class Analise_de_descontos:
             linhas = texto.split('\n')
 
             for b in linhas:
-                if b.__contains__(f'FICHA FINANCEIRA REFERENTE A {ano}'):
+                if b.__contains__(f'FICHA FINANCEIRA REFERENTE A'):
                     self.__paginas.append(a)
 
     def __gerar_dados(self):
@@ -38,29 +38,30 @@ class Analise_de_descontos:
 
             novas_linhas = novo_texto.split('\n')
 
-            for d in novas_linhas:
-                if d.__contains__('D E S C O N T O S'):
-                    if d[41:].split() != []:
-                        descontos = d[41:].split()
-                        aux = 0
-                        for e in range(len(descontos)):
-                            aux = aux + float(descontos[e].replace(',','.'))
-                        for w in range(len(novas_linhas)):
-                            if str(novas_linhas[w]).__contains__("BANCO"):
-                                if str(novas_linhas[w])[15:79] in self.__dados['siape_e_nome']:
-                                    index = self.__dados['siape_e_nome'].index(str(novas_linhas[6])[15:79])
-                                    self.__dados['desconto'][index] += aux
-                        else:
-                            for j in range(len(novas_linhas)):
-                                if str(novas_linhas[j]).__contains__("BANCO"):
-                                    self.__dados['siape_e_nome'].append(str(novas_linhas[j])[15:79])
-                            for x in range(len(novas_linhas)):
-                                if str(novas_linhas[x][:33]).__contains__("FICHA FINANCEIRA REFERENTE A"):
-                                    self.__dados['ano'].append(str(novas_linhas[x][:33]))
-                            for y in range(len(novas_linhas)):
-                                if str(novas_linhas[y][109:]).__contains__("EMITIDO EM"):
-                                    self.__dados['emissao'].append(novas_linhas[y][109:])
-                            self.__dados['desconto'].append(aux)
+            nome_e_siape = r"(?<=:)\s*(.*?)\s*(?=BANCO)"
+
+            for x in novas_linhas:
+                if x.__contains__("BANCO"):
+                    if re.search(nome_e_siape,x).group(1) not in self.__dados['siape_e_nome']:
+                        self.__dados['siape_e_nome'].append(re.search(nome_e_siape,x).group(1))
+                        self.__dados['desconto_AT'].append(0)
+                        self.__dados['desconto_BE'].append(0)
+                        for r in novas_linhas:
+                            if r.__contains__('D E S C O N T O S'):
+                                for w in r[41:].split():
+                                    if float(w.split(',')[-1]) != 00:
+                                        self.__dados['desconto_BE'][int(self.__dados['siape_e_nome'].index(re.search(nome_e_siape,x).group(1)))] += float(w.replace(',','.'))
+                                    else:
+                                        self.__dados['desconto_AT'][int(self.__dados['siape_e_nome'].index(re.search(nome_e_siape,x).group(1)))] += float(w.replace(',','.'))
+                    else:
+                        for p in novas_linhas:
+                            if p.__contains__('D E S C O N T O S'):
+                                for b in p[41:].split():
+                                    if float(b.split(',')[-1]) != 00:
+                                        self.__dados['desconto_BE'][int(self.__dados['siape_e_nome'].index(re.search(nome_e_siape,x).group(1)))] += float(b.replace(',','.'))
+                                    else:
+                                        self.__dados['desconto_AT'][int(self.__dados['siape_e_nome'].index(re.search(nome_e_siape,x).group(1)))] += float(b.replace(',','.'))
+                                                        
     def __gerar_saida(self):
         pd.DataFrame(self.__dados).to_excel(self.__EXIT_PATH, index=False)
         self.__DESCONTOS.close()
@@ -70,8 +71,8 @@ class Analise_de_descontos:
             self.__dados[chave].clear()
         self.__paginas.clear()
     
-    def iniciar(self, ano):
-        self.__alimentar_paginas(ano)
+    def iniciar(self):
+        self.__alimentar_paginas()
         self.__gerar_dados()
         self.__gerar_saida()
         self.__limpar_listas()

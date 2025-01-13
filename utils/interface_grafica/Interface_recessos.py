@@ -90,6 +90,7 @@ class Interface_recessos:
             destination_path = os.path.join(destination_directory, new_file_name)
             shutil.copy(file_path, destination_path)
             print(f'Arquivo copiado e renomeado para: {destination_path}')
+            self.__frame_botoes.mainloop()
     
     def __run_analyzer_Analise_de_Recessos(self):
         try:

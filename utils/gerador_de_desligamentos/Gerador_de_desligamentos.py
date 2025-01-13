@@ -62,9 +62,9 @@ class Gerador_de_desligamentos:
                         aba['B2'] = f"{self.__desligados['Nome'][self.__desligados['CPF'].index(c)]}" 
                         aba['B3'] = c
                         aba['B4'] = f"{str(self.__MRE.iloc[d,2])}"
-                        aba['E5'] = f"{self.__MRE.iloc[d,26].strftime("%d/%m/%Y")}"
+                        aba['E5'] = f"{self.__MRE.iloc[d,26].strftime('%d/%m/%Y')}"
                         if data_alternativa == 'Insira data de deligamento alternativa' or data_alternativa == '':
-                            aba['E6'] = f"{(self.__MRE.iloc[d,27].strftime("%d/%m/%Y"))}"
+                            aba['E6'] = f"{(self.__MRE.iloc[d,27].strftime('%d/%m/%Y'))}"
                             if 30 - int((self.__MRE.iloc[d,27].strftime("%d"))) <= 1:
                                 aba['C21'] =  0
                             else:

@@ -14,18 +14,6 @@ class Interface_descontos:
         self.__frame_botoes = tk.Frame(root)
         self.__frame_botoes.pack(pady=20)
 
-        self.__variavel_ano = None
-
-        self.__anos = [str(ano) for ano in range(2023, datetime.now().year + 1)]
-
-        self.__variavel_escolha_ano = tk.StringVar(self.__frame_botoes)
-        self.__variavel_escolha_ano.set('Escolha um ano')
-        
-        self.__variavel_escolha_ano.trace_add("write", self.__Set_ano)
-
-        caixa_opcoes = tk.OptionMenu(self.__frame_botoes, self.__variavel_escolha_ano, *self.__anos)
-        caixa_opcoes.pack(pady=10)
-        
         self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload Descontos', command=lambda: self.__upload_file_Analise_de_Descontos('Descontos'))
         self.__upload_folhas_button.pack(pady=10)
 
@@ -35,7 +23,7 @@ class Interface_descontos:
         self.__barra_progresso = ttk.Progressbar(self.__frame_botoes, orient="horizontal", length=300, mode="determinate")
         self.__barra_progresso.pack(pady=20)
 
-        self.__text_area = tk.Text(root, height=30, width=90)
+        self.__text_area = tk.Text(root, height=30, width=80)
         self.__text_area.pack(pady=10)
         self.__ler_arquivo()
 
@@ -53,9 +41,6 @@ class Interface_descontos:
         except FileNotFoundError:
             self.__text_area.insert(tk.END, "Arquivo não encontrado.")
 
-    def __Set_ano(self, *agrs):
-        self.__variavel_ano = self.__variavel_escolha_ano.get()
-
     def __upload_file_Analise_de_Descontos(self, upload_type):
         file_path = filedialog.askopenfilename()
         if file_path:
@@ -71,21 +56,16 @@ class Interface_descontos:
             destination_path = os.path.join(destination_directory, new_file_name)
             shutil.copy(file_path, destination_path)
             print(f'Arquivo copiado e renomeado para: {destination_path}')
+            self.__frame_botoes.mainloop()
 
     def __run_analyzer_Analise_de_Descontos(self):
         try:
-            if self.__variavel_ano != None:
-                descontos = Analise_de_descontos()
-                self.__start_task(descontos.iniciar(self.__variavel_ano))
-                messagebox.showinfo('Sucesso', 'Verifique sua pasta de Downloads')
-                print('Analisador de Descontos executado com sucesso.')
-                self.__variavel_ano = None
-            else:
-                messagebox.showerror('Erro', 'Escolha um ano.')
-                self.__variavel_ano = None
+            descontos = Analise_de_descontos()
+            self.__start_task(descontos.iniciar())
+            messagebox.showinfo('Sucesso', 'Verifique sua pasta de Downloads')
+            print('Analisador de Descontos executado com sucesso.')
         except subprocess.CalledProcessError:
             messagebox.showerror('Erro', 'Erro ao executar o Analisador de Descontos.')
-            self.__variavel_ano = None
 
     def __start_task(self, func):
         thread = threading.Thread(target=func)
