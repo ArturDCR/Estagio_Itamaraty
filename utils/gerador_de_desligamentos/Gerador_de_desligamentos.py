@@ -1,8 +1,8 @@
 import shutil as sh
 import pandas as pd
+import os
 from datetime import datetime
 from openpyxl import load_workbook
-import os
 
 class Gerador_de_desligamentos:
     def __init__(self):
@@ -11,6 +11,7 @@ class Gerador_de_desligamentos:
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser("~"), 'Downloads'), f"Desligamentos {datetime.now().strftime('%Y_%m_%d')}")
         self.__MODELO = os.path.join("utils/gerador_de_desligamentos/dados",'Modelo_desligamento.xlsx')
         self.__RECESSOS = pd.read_excel(os.path.join("utils/gerador_de_desligamentos/dados","Recessos.xlsx"))
+        self.__FALTAS = pd.read_excel(os.path.join("utils/gerador_de_desligamentos/dados","Faltas.xlsx"))
 
         self.__gerar_pasta_saida()
 
@@ -66,20 +67,53 @@ class Gerador_de_desligamentos:
                         if data_alternativa == 'Insira data de deligamento alternativa' or data_alternativa == '':
                             aba['E6'] = f"{(self.__MRE.iloc[d,27].strftime('%d/%m/%Y'))}"
                             if 30 - int((self.__MRE.iloc[d,27].strftime("%d"))) <= 1:
-                                aba['C21'] =  0
+                                aba['C21'] = 0
+                                aba['C28'] = 0
                             else:
                                 aba['C21'] = 30 - int((self.__MRE.iloc[d,27].strftime("%d")))
+                                aba['C28'] = 30 - int((self.__MRE.iloc[d,27].strftime("%d")))
                         else:
                             aba['E6'] = data_alternativa
                             if 30 - int(data_alternativa[:2]) <= 1:
-                                aba['C21'] =  0
+                                aba['C21'] = 0
+                                aba['C28'] = 0
                             else:
                                 aba['C21'] = 30 - int(data_alternativa[:2])
+                                aba['C28'] = 30 - int(data_alternativa[:2])
                         if str(self.__MRE.iloc[d,17]) == 30:
                             aba['B7'] = '1125,69'
                         else:
                             aba['B7'] = '787,98'
-                        aba["C10"] = f"{str(self.__RECESSOS.iloc[0,2])}"
+                        aba['C10'] = f"{str(self.__RECESSOS.iloc[0,2])}"
+                        for v in range(len(self.__FALTAS.iloc[:,0])):
+                            # 037.991.061-62
+                            if str(self.__FALTAS.iloc[v,0].split(' - ')[0]) == str(self.__MRE.iloc[d,2]):
+                                if int(self.__FALTAS.iloc[v,1]) > 0:
+                                    aba['C27'] = int(self.__FALTAS.iloc[v,1])/10
+                                    if float(self.__FALTAS.iloc[v,2]) > 0:
+                                        if str(self.__MRE.iloc[d,17]) == 30:
+                                            aba['C22'] = float(self.__FALTAS.iloc[v,2])//(1125.69/30)
+                                            break
+                                        else:
+                                            aba['C22'] = float(self.__FALTAS.iloc[v,2])//(787.98/30)
+                                            break
+                                    else:
+                                        aba['C22'] = 0
+                                        break
+                                else:
+                                    aba['C27'] = 0
+                                    if float(self.__FALTAS.iloc[v,2]) > 0:
+                                        if str(self.__MRE.iloc[d,17]) == 30:
+                                            aba['C22'] = float(self.__FALTAS.iloc[v,2])//(1125.69/30)
+                                            break
+                                        else:
+                                            aba['C22'] = float(self.__FALTAS.iloc[v,2])//(787.98/30)
+                                            break
+                                    else:
+                                        aba['C22'] = 0
+                                        break
+                            else:
+                                continue
                         aux.save(os.path.join(self.__EXIT_PATH, f"{self.__desligados['Nome'][self.__desligados['CPF'].index(c)]}.xlsx"))
 
             else:
@@ -94,16 +128,16 @@ class Gerador_de_desligamentos:
                 if data_alternativa == 'Insira data de deligamento alternativa' or data_alternativa == '':
                     aba['E6'] = f"{self.__desligados['DataFinal'][self.__desligados['CPF'].index(c)]}"
                     if 30 - int(self.__desligados['DataFinal'][self.__desligados['CPF'].index(c)][:2]) <= 1:
-                        aba['C21'] =  0
+                        aba['C21'] = 0
                     else:
                         aba['C21'] = 30 - int(self.__desligados['DataFinal'][self.__desligados['CPF'].index(c)][:2])
                 else:
                     aba['E6'] = data_alternativa
                     if 30 - int(data_alternativa[:2]) <= 1:
-                        aba['C21'] =  0
+                        aba['C21'] = 0
                     else:
                         aba['C21'] = 30 - int(data_alternativa[:2])
-                aba["C10"] = f"{str(self.__RECESSOS.iloc[0,2])}"
+                aba['C10'] = f"{str(self.__RECESSOS.iloc[0,2])}"
                 aux.save(os.path.join(self.__EXIT_PATH, f"{self.__desligados['Nome'][self.__desligados['CPF'].index(c)]}.xlsx"))
                 
     def __limpar_listas(self):
