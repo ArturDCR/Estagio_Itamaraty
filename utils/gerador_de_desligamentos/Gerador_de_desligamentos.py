@@ -92,10 +92,12 @@ class Gerador_de_desligamentos:
                                     aba['C27'] = int(self.__FALTAS.iloc[v,1])/10
                                     if float(self.__FALTAS.iloc[v,2]) > 0:
                                         if str(self.__MRE.iloc[d,17]) == 30:
-                                            aba['C22'] = float(self.__FALTAS.iloc[v,2])//(1125.69/30)
+                                            aba['C22'] = int(self.__FALTAS.iloc[v,2])//(1125.69/30)-10
+                                            aba['C27'] = int(self.__FALTAS.iloc[v,1])/10 + (int(self.__FALTAS.iloc[v,2])//(1125.69/30)-10)
                                             break
                                         else:
-                                            aba['C22'] = float(self.__FALTAS.iloc[v,2])//(787.98/30)
+                                            aba['C22'] = int(self.__FALTAS.iloc[v,2])//(787.98/30)-10
+                                            aba['C27'] = int(self.__FALTAS.iloc[v,1])/10 + (int(self.__FALTAS.iloc[v,2])//(787.98/30)-10)
                                             break
                                     else:
                                         aba['C22'] = 0
@@ -104,10 +106,12 @@ class Gerador_de_desligamentos:
                                     aba['C27'] = 0
                                     if float(self.__FALTAS.iloc[v,2]) > 0:
                                         if str(self.__MRE.iloc[d,17]) == 30:
-                                            aba['C22'] = float(self.__FALTAS.iloc[v,2])//(1125.69/30)
+                                            aba['C22'] = int(self.__FALTAS.iloc[v,2])//(1125.69/30)-10
+                                            aba['C27'] = int(self.__FALTAS.iloc[v,1])/10 + (int(self.__FALTAS.iloc[v,2])//(1125.69/30)-10)
                                             break
                                         else:
-                                            aba['C22'] = float(self.__FALTAS.iloc[v,2])//(787.98/30)
+                                            aba['C22'] = int(self.__FALTAS.iloc[v,2])//(787.98/30)
+                                            aba['C27'] = int(self.__FALTAS.iloc[v,1])/10 + (int(self.__FALTAS.iloc[v,2])//(787.98/30)-10)
                                             break
                                     else:
                                         aba['C22'] = 0
