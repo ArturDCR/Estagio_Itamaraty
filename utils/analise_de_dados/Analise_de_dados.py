@@ -69,8 +69,8 @@ class Analise_de_dados:
                 self.__cpf_ciee.append(self.__conversor_de_cpf(str(self.__CIEE.iloc[a,4])))
         
         for b in range(len(self.__MRE.iloc[:,3])):
-            if str(self.__MRE.iloc[b,4]) != 'nan' and str(self.__MRE.iloc[b,4]) != 'CPF':
-                self.__cpf_mre.append(self.__conversor_de_cpf(str(self.__MRE.iloc[b,4])))
+            if str(self.__MRE.iloc[b,3]) != 'nan' and str(self.__MRE.iloc[b,3]) != 'CPF':
+                self.__cpf_mre.append(self.__conversor_de_cpf(str(self.__MRE.iloc[b,3])))
         
         for c in range(len(self.__SCE.iloc[:,6])):
             if str(self.__SCE.iloc[c,6]) != 'nan' and str(self.__SCE.iloc[c,6]) != 'CPF':
