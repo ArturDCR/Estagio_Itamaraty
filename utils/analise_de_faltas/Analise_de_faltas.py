@@ -1,12 +1,10 @@
 import pandas as pd
 import os
 
-from utils.analise_de_faltas import Gerador_de_faltas as gerador
 from utils.analise_de_faltas import Hob
 
 class Analise_de_faltas:
     def __init__(self):
-
         self.__FALTAS = pd.read_excel(os.path.join("utils/analise_de_faltas/dados","Faltas.xlsx"))
         self.__SAIDA = open('utils/analise_de_faltas/dados/saida.txt', 'w')
 
@@ -29,15 +27,12 @@ class Analise_de_faltas:
     def __gerar_dados(self, escolha, mes, ano):
         if escolha == 'VT':
             for a in range(len(self.__FALTAS.iloc[:,0])):
-                if str(self.__FALTAS.iloc[a,2]) != 'nan' and str(self.__FALTAS.iloc[a,3]) != 'nan':
-                    self.__SAIDA.write(f'{(self.__FALTAS.iloc[a,4])},D,82695,6,I,{str(mes)+str(ano)},"{self.__swicth((int(self.__FALTAS.iloc[a,2])*10) + int(self.__FALTAS.iloc[a,3])*10)}","SCE,Folha de ponto e ficha F","Dias"\n')
-                elif str(self.__FALTAS.iloc[a,2]) != 'nan':
-                    self.__SAIDA.write(f'{(self.__FALTAS.iloc[a,4])},D,82695,6,I,{str(mes)+str(ano)},"{self.__swicth(int(self.__FALTAS.iloc[a,2])*10)}","SCE,Folha de ponto e ficha F","Dias"\n')
-                else:
-                    self.__SAIDA.write(f'{(self.__FALTAS.iloc[a,4])},D,82695,6,I,{str(mes)+str(ano)},"{self.__swicth(int(self.__FALTAS.iloc[a,3])*10)}","SCE,Folha de ponto e ficha F","Dias"\n')
+                if str(self.__FALTAS.iloc[a,2]) != 'nan':
+                    self.__SAIDA.write(f'{(self.__FALTAS.iloc[a,3])},D,82695,6,I,{str(mes)+str(ano)},"{self.__swicth(int(self.__FALTAS.iloc[a,2])*10)}","SCE,Folha de ponto e ficha F","Dias"\n')
         else:
-            if str(self.__FALTAS.iloc[a,3]) != 'nan':
-                self.__SAIDA.write(f'{(self.__FALTAS.iloc[a,4])},D,83172,6,I,{str(mes)+str(ano)},"{self.__swicth(int(self.__FALTAS.iloc[a,3])*10)}","SCE,Folha de ponto e ficha F","Dias"\n')
+            for c in range(len(self.__FALTAS.iloc[:,0])):
+                if str(self.__FALTAS.iloc[c,2]) != 'nan':
+                    self.__SAIDA.write(f'{(self.__FALTAS.iloc[c,3])},D,83172,6,I,{str(mes)+str(ano)},"{self.__swicth(int(self.__FALTAS.iloc[c,2])*10)}","SCE,Folha de ponto e ficha F","Dias"\n')
     
     def __gerar_saida(self):
         self.__SAIDA.close()
@@ -46,7 +41,11 @@ class Analise_de_faltas:
 
         Hob.Hob()
     
+    def __limpar_dados(self):
+        os.remove('utils/analise_de_faltas/dados/dadosFPATMOVFIN_V3_REF.csv')
+        os.remove('utils/analise_de_faltas/dados/Faltas.xlsx')
+    
     def iniciar(self, escolha, mes, ano):
-        gerador.Gerador_de_faltas(mes,ano)
         self.__gerar_dados(escolha, mes, ano)
         self.__gerar_saida()
+        self.__limpar_dados()

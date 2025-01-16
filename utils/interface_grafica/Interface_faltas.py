@@ -8,7 +8,7 @@ from datetime import datetime
 import threading
 import time
 
-from . .analise_de_faltas.Analise_de_faltas import Analise_de_faltas
+from . .analise_de_faltas.Gerador_de_faltas import Gerador_de_faltas
 
 class Interface_analise_de_faltas():
     def __init__(self, root):
@@ -115,23 +115,32 @@ class Interface_analise_de_faltas():
     def __run_analyzer_Analise_de_Faltas(self):
         try:
             if self.__variavel_mes != None and self.__variavel_ano != None and self.__variavel_desconto != None:
-                faltas = Analise_de_faltas()
+                faltas = Gerador_de_faltas()
                 self.__start_task(faltas.iniciar(self.__variavel_desconto, self.__variavel_mes, self.__variavel_ano))
                 messagebox.showinfo('Sucesso', 'Verifique sua pasta de Downloads')
                 print('Analisador de Faltas executado com sucesso.')
                 self.__variavel_ano = None
+                self.__variavel_escolha_ano.set('Escolha um Ano')
                 self.__variavel_mes = None
+                self.__variavel_escolha_Mes.set('Escolha um Mês')
                 self.__variavel_desconto = None
+                self.__variavel_escolha_desconto.set('Escolha o desconto')
             else:
                 messagebox.showerror('Erro', 'Escolha um Mês e um Ano e o tipo de Desconto')
                 self.__variavel_ano = None
+                self.__variavel_escolha_ano.set('Escolha um Ano')
                 self.__variavel_mes = None
+                self.__variavel_escolha_Mes.set('Escolha um Mês')
                 self.__variavel_desconto = None
+                self.__variavel_escolha_desconto.set('Escolha o desconto')
         except subprocess.CalledProcessError:
             messagebox.showerror('Erro', 'Erro ao executar o Analisador de Faltas.')
             self.__variavel_ano = None
+            self.__variavel_escolha_ano.set('Escolha um Ano')
             self.__variavel_mes = None
+            self.__variavel_escolha_Mes.set('Escolha um Mês')
             self.__variavel_desconto = None
+            self.__variavel_escolha_desconto.set('Escolha o desconto')
     
     def __start_task(self, func):
         thread = threading.Thread(target=func)
