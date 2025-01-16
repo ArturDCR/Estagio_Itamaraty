@@ -14,14 +14,16 @@ class Gerador_de_faltas:
             'nome': [],
             'cpf': [],
             'dias_justificados': [],
-            'siape': []
+            'siape': [],
+            'dias': []
         }
         
         self.__dados_BE = {
             'nome': [],
             'cpf': [],
             'dias_injustificados': [],
-            'siape': []
+            'siape': [],
+            'dias': []
         }
 
     def __conversor_de_cpf(self, cpf):
@@ -49,8 +51,10 @@ class Gerador_de_faltas:
                             self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[p,11]).split(' | ')[-1]))
                         if str(self.__FORMS.iloc[p,23]).__contains__(';'):
                             self.__dados_VT['dias_justificados'].append(len(self.__FORMS.iloc[p,23].split(';')))
+                            self.__dados_VT['dias'].append(f"{self.__FORMS.iloc[p,23].split(';')} de {mes}")
                         else:
                             self.__dados_VT['dias_justificados'].append(self.__FORMS.iloc[p,23])
+                            self.__dados_VT['dias'].append(f'{self.__FORMS.iloc[p,23]} de {mes}')
                 else:
                     if str(self.__FORMS.iloc[p,32]) != 'nan':               
                         if str(self.__FORMS.iloc[p,11]) == 'NÃO ENCONTRADO':
@@ -61,8 +65,10 @@ class Gerador_de_faltas:
                             self.__dados_BE['nome'].append(str(self.__FORMS.iloc[p,11]).split('|')[0])
                         if str(self.__FORMS.iloc[p,32]).__contains__(';'):
                             self.__dados_BE['dias_injustificados'].append(len(self.__FORMS.iloc[p,32].split(';')))
+                            self.__dados_BE['dias'].append(f'{self.__FORMS.iloc[p,32].split(';')} de {mes}')
                         else:
                             self.__dados_BE['dias_injustificados'].append(self.__FORMS.iloc[p,32])
+                            self.__dados_BE['dias'].append(f'{self.__FORMS.iloc[p,32]} de {mes}')
 
         for c in self.__dados_VT['cpf']:
                 for b in range(len(self.__MRE.iloc[:,3])):
