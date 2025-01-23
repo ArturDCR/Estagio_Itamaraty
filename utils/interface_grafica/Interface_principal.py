@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import Toplevel
 from PIL import Image, ImageTk
 
-from utils.interface_grafica.Interface_dados import Interface_analise_de_dados as Dados
+from utils.interface_grafica.Interface_conferencia_ciee import Interface_conferencia_ciee as Ciee
 from utils.interface_grafica.Interface_faltas import Interface_analise_de_faltas as Faltas
 from utils.interface_grafica.Interface_vigencia import Interface_vigencia as vigencias
 from utils.interface_grafica.Interface_SouGov import Interface_SouGov as SouGov
@@ -21,8 +21,8 @@ class Interface_principal:
         self.__frame_botoes = tk.Frame(self.__root)
         self.__frame_botoes.pack(pady=20)
 
-        self.__analisador_de_dados_button = tk.Button(self.__frame_botoes, text='Análise CIEE', command=lambda: self.__abrir_tela('Analisador de Dados CIEE'))
-        self.__analisador_de_dados_button.pack(side=tk.LEFT, padx=10)
+        self.__conferencia_ciee_button = tk.Button(self.__frame_botoes, text='Conferência CIEE', command=lambda: self.__abrir_tela('Conferencia CIEE'))
+        self.__conferencia_ciee_button.pack(side=tk.LEFT, padx=10)
 
         self.__analisador_de_faltas_button = tk.Button(self.__frame_botoes, text='Análise de Faltas', command=lambda: self.__abrir_tela('Analisador de Faltas'))
         self.__analisador_de_faltas_button.pack(side=tk.LEFT, padx=10)
@@ -58,8 +58,8 @@ class Interface_principal:
 
         nova_tela.geometry('854x480')
 
-        if titulo == 'Analisador de Dados CIEE':
-            Dados(nova_tela)
+        if titulo == 'Conferencia CIEE':
+            Ciee(nova_tela)
 
         elif titulo == 'Analisador de Faltas':
             nova_tela.geometry('854x700')
