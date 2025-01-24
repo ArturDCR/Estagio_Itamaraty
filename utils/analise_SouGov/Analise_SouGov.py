@@ -6,6 +6,7 @@ class Analise_SouGov:
     def __init__(self):
         self.__TA = pd.read_excel(os.path.join("utils/analise_SouGov/dados","Tas.xlsx"))
         self.__EMAILS = pd.read_excel(os.path.join("utils/analise_SouGov/dados","Emails.xlsx"))
+        self.__SCE = pd.read_excel(os.path.join("utils/analise_SouGov/dados","Sce.xlsx"))
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser("~"), 'Downloads'), f"Resultado Analise SouGov {datetime.now().strftime('%Y_%m_%d')}.xlsx")
 
         self.__aux = []
@@ -39,24 +40,36 @@ class Analise_SouGov:
                         if str(self.__TA.iloc[a-1,1][6:]).lower() in self.__aux:
                             for b in range(len(self.__EMAILS.iloc[:,0])):
                                 if str(self.__EMAILS.iloc[b,0]).split('"')[0].lower() == str(self.__TA.iloc[a-1,1][6:]).lower():
-                                    self.__dados['nome'].append(str(self.__TA.iloc[a-1,1][6:]))
-                                    self.__dados['cpf'].append(str(self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:]))))
-                                    self.__dados['email'].append(str(self.__EMAILS.iloc[b,0]).split('<')[-1])
+                                    for atividade in range(len(self.__SCE.iloc[:,6])):
+                                        if self.__conversor_de_cpf(str(self.__SCE.iloc[atividade,6])) == self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:])):
+                                            if str(self.__SCE.iloc[atividade,13]) == 'Ativo':
+                                                self.__dados['nome'].append(str(self.__TA.iloc[a-1,1][6:]))
+                                                self.__dados['cpf'].append(str(self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:]))))
+                                                self.__dados['email'].append(str(self.__EMAILS.iloc[b,0]).split('<')[-1])
                         else:
-                            self.__dados['nome'].append(str(self.__TA.iloc[a-1,1][6:]))
-                            self.__dados['cpf'].append(str(self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:]))))
-                            self.__dados['email'].append('Email não encontrado')
+                            for atividade in range(len(self.__SCE.iloc[:,6])):
+                                if self.__conversor_de_cpf(str(self.__SCE.iloc[atividade,6])) == self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:])):
+                                    if str(self.__SCE.iloc[atividade,13]) == 'Ativo':
+                                        self.__dados['nome'].append(str(self.__TA.iloc[a-1,1][6:]))
+                                        self.__dados['cpf'].append(str(self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:]))))
+                                        self.__dados['email'].append('Email não encontrado')
                 else:
                     if str(self.__TA.iloc[a-1,1][6:]).lower() in self.__aux:
                         for b in range(len(self.__EMAILS.iloc[:,0])):
                             if str(self.__EMAILS.iloc[b,0]).split('"')[0].lower() == str(self.__TA.iloc[a-1,1][6:]).lower():
-                                self.__dados['nome'].append(str(self.__TA.iloc[a-1,1][6:]))
-                                self.__dados['cpf'].append(str(self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:]))))
-                                self.__dados['email'].append(str(self.__EMAILS.iloc[b,0]).split('<')[-1])
+                                for atividade in range(len(self.__SCE.iloc[:,6])):
+                                        if self.__conversor_de_cpf(str(self.__SCE.iloc[atividade,6])) == self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:])):
+                                            if str(self.__SCE.iloc[atividade,13]) == 'Ativo':
+                                                self.__dados['nome'].append(str(self.__TA.iloc[a-1,1][6:]))
+                                                self.__dados['cpf'].append(str(self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:]))))
+                                                self.__dados['email'].append(str(self.__EMAILS.iloc[b,0]).split('<')[-1])
                     else:
-                        self.__dados['nome'].append(str(self.__TA.iloc[a-1,1][6:]))
-                        self.__dados['cpf'].append(str(self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:]))))
-                        self.__dados['email'].append('Email não encontrado')
+                        for atividade in range(len(self.__SCE.iloc[:,6])):
+                            if self.__conversor_de_cpf(str(self.__SCE.iloc[atividade,6])) == self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:])):
+                                if str(self.__SCE.iloc[atividade,13]) == 'Ativo':
+                                    self.__dados['nome'].append(str(self.__TA.iloc[a-1,1][6:]))
+                                    self.__dados['cpf'].append(str(self.__conversor_de_cpf(str(self.__TA.iloc[a-1,5][5:]))))
+                                    self.__dados['email'].append('Email não encontrado')
 
     def __gerar_saida(self):                    
         pd.DataFrame(self.__dados).to_excel(self.__EXIT_PATH,index=False)
