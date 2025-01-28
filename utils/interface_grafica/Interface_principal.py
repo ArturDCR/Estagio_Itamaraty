@@ -9,14 +9,13 @@ from utils.interface_grafica.Interface_SouGov import Interface_SouGov as SouGov
 from utils.interface_grafica.Interface_descontos import Interface_descontos as desconto
 from utils.interface_grafica.Interface_recessos import Interface_recessos as recessos
 from utils.interface_grafica.Interface_desligamentos import Interface_desligamentos as desligamentos
+from utils.interface_grafica.interface_declaracao import Interface_declaracao as declaracao
 
 class Interface_principal:
     def __init__(self):
         self.__root = tk.Tk()
         self.__root.title('Central DTA')
-        self.__root.resizable(False, False)
-
-        self.__root.geometry('1200x400')
+        self.__root.resizable(self.__root.winfo_screenwidth(), self.__root.winfo_screenheight())
 
         self.__frame_botoes = tk.Frame(self.__root)
         self.__frame_botoes.pack(pady=20)
@@ -41,6 +40,9 @@ class Interface_principal:
 
         self.__analisador_de_desligamentos_button = tk.Button(self.__frame_botoes, text='Gerador de Desligamentos', command=lambda: self.__abrir_tela('Gerador de Desligamentos'))
         self.__analisador_de_desligamentos_button.pack(side=tk.LEFT, padx=10)
+
+        self.__gerador_de_declaracao_button = tk.Button(self.__frame_botoes, text='Gerador de Declarações', command=lambda: self.__abrir_tela('Gerador de Declarações'))
+        self.__gerador_de_declaracao_button.pack(side=tk.LEFT, padx=10)
 
         self.__imagem = Image.open("utils/interface_grafica/dados/MRE.jpg")
         self.__imagem_tk = ImageTk.PhotoImage(self.__imagem)
@@ -80,3 +82,6 @@ class Interface_principal:
 
         elif titulo == 'Gerador de Desligamentos':
             desligamentos(nova_tela)
+        
+        elif titulo == 'Gerador de Declarações':
+            declaracao(nova_tela)
