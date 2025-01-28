@@ -9,7 +9,8 @@ from utils.interface_grafica.Interface_SouGov import Interface_SouGov as SouGov
 from utils.interface_grafica.Interface_descontos import Interface_descontos as desconto
 from utils.interface_grafica.Interface_recessos import Interface_recessos as recessos
 from utils.interface_grafica.Interface_desligamentos import Interface_desligamentos as desligamentos
-from utils.interface_grafica.interface_declaracao import Interface_declaracao as declaracao
+from utils.interface_grafica.Interface_declaracao import Interface_declaracao as declaracao
+from utils.interface_grafica.Interface_mala_direta import Interface_mala_direta as mala_direta
 
 class Interface_principal:
     def __init__(self):
@@ -43,6 +44,9 @@ class Interface_principal:
 
         self.__gerador_de_declaracao_button = tk.Button(self.__frame_botoes, text='Gerador de Declarações', command=lambda: self.__abrir_tela('Gerador de Declarações'))
         self.__gerador_de_declaracao_button.pack(side=tk.LEFT, padx=10)
+    
+        self.__gerador_mala_direta_button = tk.Button(self.__frame_botoes, text='Gerador Mala Direta', command=lambda: self.__abrir_tela('Gerador Mala Direta'))
+        self.__gerador_mala_direta_button.pack(side=tk.LEFT, padx=10)
 
         self.__imagem = Image.open("utils/interface_grafica/dados/MRE.jpg")
         self.__imagem_tk = ImageTk.PhotoImage(self.__imagem)
@@ -85,3 +89,6 @@ class Interface_principal:
         
         elif titulo == 'Gerador de Declarações':
             declaracao(nova_tela)
+        
+        elif titulo == 'Gerador Mala Direta':
+            mala_direta(nova_tela)
