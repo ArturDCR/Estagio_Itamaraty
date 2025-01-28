@@ -29,7 +29,7 @@ class Interface_recessos:
         self.__barra_progresso = ttk.Progressbar(self.__frame_botoes, orient="horizontal", length=300, mode="determinate")
         self.__barra_progresso.pack(pady=20)
 
-        self.__text_area = tk.Text(root, height=30, width=90)
+        self.__text_area = tk.Text(root, height=10, width=90)
         self.__text_area.pack(pady=10)
         self.__ler_arquivo()
 

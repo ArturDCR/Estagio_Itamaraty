@@ -58,24 +58,20 @@ class Interface_principal:
         
     def __abrir_tela(self, titulo):
         nova_tela = Toplevel(self.__root)
-        nova_tela.resizable(False, False)
+        nova_tela.resizable(self.__root.winfo_screenwidth(), self.__root.winfo_screenheight())
 
         nova_tela.title(titulo)
-
-        nova_tela.geometry('854x480')
 
         if titulo == 'Conferencia CIEE':
             Ciee(nova_tela)
 
         elif titulo == 'Analisador de Faltas':
-            nova_tela.geometry('854x700')
             Faltas(nova_tela)
 
         elif titulo == 'Analisador de Vigência':
             vigencias(nova_tela)
 
         elif titulo == 'Analisador SouGov':
-            nova_tela.geometry('854x600')
             SouGov(nova_tela)
 
         elif titulo == 'Analisador de Descontos':
