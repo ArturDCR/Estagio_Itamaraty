@@ -37,7 +37,7 @@ class Gerador_de_desligamentos:
             else:
                 return str(cpf)
         elif len(cpf) != 11:
-                return str(cpf[:3] + cpf[4:7] + cpf[8:11] + cpf[12:])
+            return str(cpf[:3] + cpf[4:7] + cpf[8:11] + cpf[12:])
         else:
             return str(cpf)
 

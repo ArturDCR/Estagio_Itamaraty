@@ -1,4 +1,4 @@
-#!/home/artur/Documentos/ProjetoDTA/DTAv3/.venv/bin/python3
+#!/home/artur/Documentos/ProjetoDTA/Estagio_Itamaraty/.venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

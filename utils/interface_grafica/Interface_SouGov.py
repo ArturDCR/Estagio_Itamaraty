@@ -54,6 +54,9 @@ class Interface_SouGov:
 
         self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload TA', command=lambda: self.__upload_file_Analise_SouGov('TA'))
         self.__upload_folhas_button.pack(pady=10)
+    
+        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload Sce', command=lambda: self.__upload_file_Analise_SouGov('Sce'))
+        self.__upload_sce_button.pack(pady=10)
 
         self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Análise', command= self.__run_analyzer_Analise_SouGov)
         self.__analyze_button.pack(pady=10)
@@ -61,7 +64,7 @@ class Interface_SouGov:
         self.__barra_progresso = ttk.Progressbar(self.__frame_botoes, orient="horizontal", length=300, mode="determinate")
         self.__barra_progresso.pack(pady=20)
 
-        self.__text_area = tk.Text(root, height=30, width=90)
+        self.__text_area = tk.Text(root, height=10, width=90)
         self.__text_area.pack(pady=10)
         self.__ler_arquivo()
 
@@ -99,6 +102,8 @@ class Interface_SouGov:
                 new_file_name = 'Emails.xlsx'
             elif upload_type == 'TA':
                 new_file_name = 'Tas.xlsx'
+            elif upload_type == 'Sce':
+                new_file_name = 'Sce.xlsx'
             else:
                 new_file_name = os.path.basename(file_path)
 
