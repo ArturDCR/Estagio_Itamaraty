@@ -82,7 +82,7 @@ class Conferencia_ciee:
             elif d in self.__cpf_sce:
                 for a in range(len(self.__SCE.iloc[:,6])):
                     if d == self.__conversor_de_cpf(str(self.__SCE.iloc[a,6])):
-                        if str(self.__SCE.iloc[a,28]) != 'nan':
+                        if str(self.__SCE.iloc[a,28]).__contains__('/'):
                             self.__switch('desligado',d)
                         else:
                             self.__switch('inicio',d)
