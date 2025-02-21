@@ -52,7 +52,7 @@ class Gerador_de_declaracao:
                         if not str(self.__SCE.iloc[dados,28]).__contains__('/'):
                             linhas.text = linhas.text.replace('DATA', self.__SCE.iloc[dados,23])
                         else:
-                            linhas.text = linhas.text.replace('DATA', f'{self.__SCE.iloc[dados,23].split("a")[0]} a {self.__SCE.iloc[dados,28]}')
+                            linhas.text = linhas.text.replace('DATA', f'{self.__SCE.iloc[dados,23].split("a")[0]}a {self.__SCE.iloc[dados,28]}')
                         linhas.text = linhas.text.replace('CH', self.__SCE.iloc[dados,16].replace('H',''))
                         if int(self.__SCE.iloc[dados,16].replace('H','')) == 6:
                             linhas.text = linhas.text.replace('CS', str(30))

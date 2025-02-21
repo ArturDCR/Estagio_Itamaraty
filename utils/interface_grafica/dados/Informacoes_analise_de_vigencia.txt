@@ -1,4 +1,0 @@
-A analise de vigência tem como objetivo listar todos os estagiários vigentes.
-
-Documentos necessários:
-    Lista SCE em formato XLSX.

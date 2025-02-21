@@ -1,7 +1,0 @@
-A analise de dados CIEE tem como objetivo listar todos os estagiários de acordo com sua 
-situação na base de dados.
-
-Documentos necessários:
-    Lista MRE em formato XLSX.
-    Lista SCE em formato XLSX.
-    Lista CIEE em formato XLSX.

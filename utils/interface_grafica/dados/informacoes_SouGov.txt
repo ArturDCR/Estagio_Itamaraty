@@ -1,6 +1,0 @@
-A analise SouGov tem como objetivo listar todos os estagiários que tiveram alterações em
-seu contrato de acordo com dia, mês e ano.
-
-Documentos necessários:
-    Lista Termos aditivos em formato XLSX.
-    Lista Emails em formato XLSX.

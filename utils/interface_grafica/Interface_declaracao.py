@@ -80,8 +80,6 @@ class Interface_declaracao:
             shutil.copy(file_path, destination_path)
             print(f'Arquivo copiado e renomeado para: {destination_path}')
 
-            self.__frame_botoes.mainloop()
-
     def __run_analyzer_Gerador_de_declaracao(self):
         try:
             declaracao = Gerador_de_declaracao()

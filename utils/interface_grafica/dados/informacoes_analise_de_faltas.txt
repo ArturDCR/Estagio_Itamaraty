@@ -1,7 +1,0 @@
-A analise de faltas tem como objetivo listar todos as faltas cadastradas
-no forms da folha de ponto.
-
-Documentos necessários:
-    Lista MRE em formato XLSX.
-    Lista SCE em formato XLSX.
-    Lista de respostas do forms em formato XLSX.

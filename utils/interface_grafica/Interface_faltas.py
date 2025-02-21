@@ -64,24 +64,8 @@ class Interface_analise_de_faltas():
         self.__barra_progresso = ttk.Progressbar(self.__frame_botoes, orient="horizontal", length=300, mode="determinate")
         self.__barra_progresso.pack(pady=20)
 
-        self.__text_area = tk.Text(root, height=10, width=90)
-        self.__text_area.pack(pady=10)
-        self.__ler_arquivo()
-
         self.__frame_botoes.mainloop()
-    
-    def __ler_arquivo(self):
-        caminho_arquivo = "utils/interface_grafica/dados/informacoes_analise_de_faltas.txt"
-        try:
-            with open(caminho_arquivo, 'r') as arquivo:
-                conteudo = arquivo.read()
 
-            self.__text_area.delete(1.0, tk.END)
-            self.__text_area.insert(tk.END, conteudo)
-            self.__text_area.config(state=tk.DISABLED)
-        except FileNotFoundError:
-            self.__text_area.insert(tk.END, "Arquivo não encontrado.")
-    
     def __Set_desconto(self, *args):
         self.__variavel_desconto = self.__variavel_escolha_desconto.get()
     
@@ -110,7 +94,6 @@ class Interface_analise_de_faltas():
             destination_path = os.path.join(destination_directory, new_file_name)
             shutil.copy(file_path, destination_path)
             print(f'Arquivo copiado e renomeado para: {destination_path}')
-            self.__frame_botoes.mainloop()
     
     def __run_analyzer_Analise_de_Faltas(self):
         try:
