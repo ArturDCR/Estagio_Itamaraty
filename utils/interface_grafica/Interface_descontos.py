@@ -14,7 +14,7 @@ class Interface_descontos:
         self.__frame_botoes = tk.Frame(root)
         self.__frame_botoes.pack(pady=20)
 
-        self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload Descontos', command=lambda: self.__upload_file_Analise_de_Descontos('Descontos'))
+        self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload Descontos', command=lambda: self.__confirm_upload('Descontos'))
         self.__upload_folhas_button.pack(pady=10)
 
         self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Análise', command= self.__run_analyzer_Analise_de_Descontos)
@@ -25,12 +25,17 @@ class Interface_descontos:
 
         self.__frame_botoes.mainloop()
     
+    def __confirm_upload(self, tipo):
+        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        if resposta:
+            self.__upload_file_Analise_de_Descontos(tipo)
+    
     def __upload_file_Analise_de_Descontos(self, upload_type):
         file_path = filedialog.askopenfilename()
         if file_path:
             print(f'Arquivo selecionado para {upload_type}: {file_path}')
             
-            destination_directory = 'utils/analise_de_descontos/dados'
+            destination_directory = 'utils/data'
             
             if upload_type == 'Descontos':
                 new_file_name = 'Descontos.pdf'

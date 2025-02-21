@@ -5,8 +5,8 @@ from utils.analise_de_faltas import Hob
 
 class Analise_de_faltas:
     def __init__(self):
-        self.__FALTAS = pd.read_excel(os.path.join("utils/analise_de_faltas/dados","Faltas.xlsx"))
-        self.__SAIDA = open('utils/analise_de_faltas/dados/saida.txt', 'w')
+        self.__FALTAS = pd.read_excel(os.path.join("utils/data","Faltas.xlsx"))
+        self.__SAIDA = open('utils/data/saida.txt', 'w')
 
     def __swicth (self, aux):
         if str(aux).__contains__('.'):
@@ -59,13 +59,13 @@ class Analise_de_faltas:
     def __gerar_saida(self):
         self.__SAIDA.close()
 
-        os.rename('utils/analise_de_faltas/dados/saida.txt','utils/analise_de_faltas/dados/dadosFPATMOVFIN_V3_REF.csv')
+        os.rename('utils/data/saida.txt','utils/data/dadosFPATMOVFIN_V3_REF.csv')
 
         Hob.Hob()
     
     def __limpar_dados(self):
-        os.remove('utils/analise_de_faltas/dados/dadosFPATMOVFIN_V3_REF.csv')
-        os.remove('utils/analise_de_faltas/dados/Faltas.xlsx')
+        os.remove('utils/data/dadosFPATMOVFIN_V3_REF.csv')
+        os.remove('utils/data/Faltas.xlsx')
     
     def iniciar(self, escolha, mes, ano):
         self.__gerar_dados(escolha, mes, ano)

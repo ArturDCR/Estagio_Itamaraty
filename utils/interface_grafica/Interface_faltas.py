@@ -49,13 +49,13 @@ class Interface_analise_de_faltas():
         self.__caixa_opcoes = tk.OptionMenu(self.__frame_botoes, self.__variavel_escolha_Mes, *self.__meses)
         self.__caixa_opcoes.pack(pady=10)
 
-        self.__upload_ciee_button = tk.Button(self.__frame_botoes, text='Upload Forms', command=lambda: self.__upload_file_Analise_de_Faltas('Forms'))
+        self.__upload_ciee_button = tk.Button(self.__frame_botoes, text='Upload Forms', command=lambda: self.__confirm_upload('Forms'))
         self.__upload_ciee_button.pack(pady=10)
 
-        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__upload_file_Analise_de_Faltas('MRE'))
+        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__confirm_upload('MRE'))
         self.__upload_mre_button.pack(pady=10)
 
-        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_Analise_de_Faltas('SCE'))
+        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
         self.__upload_sce_button.pack(pady=10)
 
         self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Análise', command= self.__run_analyzer_Analise_de_Faltas)
@@ -65,6 +65,11 @@ class Interface_analise_de_faltas():
         self.__barra_progresso.pack(pady=20)
 
         self.__frame_botoes.mainloop()
+
+    def __confirm_upload(self, tipo):
+        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        if resposta:
+            self.__upload_file_Analise_de_Faltas(tipo)
 
     def __Set_desconto(self, *args):
         self.__variavel_desconto = self.__variavel_escolha_desconto.get()
@@ -80,7 +85,7 @@ class Interface_analise_de_faltas():
         if file_path:
             print(f'Arquivo selecionado para {upload_type}: {file_path}')
             
-            destination_directory = 'utils/analise_de_faltas/dados'
+            destination_directory = 'utils/data'
             
             if upload_type == 'Forms':
                 new_file_name = 'Forms.xlsx'

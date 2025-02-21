@@ -21,7 +21,7 @@ class Hob:
         cabecalho = '''<HAScript name="FPATMOVFINV3" description="" timeout="60000" pausetime="300" promptall="true" blockinput="false" author="marcus.gabaldo" creationdate="04/09/2014 11:51:31" supressclearevents="false" usevars="false" ignorepauseforenhancedtn="true" delayifnotenhancedtn="0" ignorepausetimeforenhancedtn="true">'''
         f.write(cabecalho) # escreve o cabecalho no arquivo
 
-        input_file = open('utils/analise_de_faltas/dados/dadosFPATMOVFIN_V3_REF.csv','r',newline='')
+        input_file = open('utils/data/dadosFPATMOVFIN_V3_REF.csv','r',newline='')
 
         data = csv.reader(input_file)
 

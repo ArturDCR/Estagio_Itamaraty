@@ -6,9 +6,9 @@ from utils.analise_de_faltas.Analise_de_faltas import Analise_de_faltas
 
 class Gerador_de_faltas:
     def __init__(self):
-        self.__FORMS = pd.read_excel(os.path.join('utils/analise_de_faltas/dados/Forms.xlsx'))
-        self.__SCE = pd.read_excel(os.path.join('utils/analise_de_faltas/dados/Sce.xlsx'))
-        self.__MRE = pd.read_excel(os.path.join('utils/analise_de_faltas/dados/Mre.xlsx'))
+        self.__FORMS = pd.read_excel(os.path.join('utils/data/Forms.xlsx'))
+        self.__SCE = pd.read_excel(os.path.join('utils/data/Sce.xlsx'))
+        self.__MRE = pd.read_excel(os.path.join('utils/data/Mre.xlsx'))
 
         self.__dados_VT = {
             'nome': [],
@@ -270,11 +270,11 @@ class Gerador_de_faltas:
                 
     def __gerar_saida(self, escolha):
         if escolha == 'VT':
-            pd.DataFrame(self.__dados_VT).to_excel('utils/analise_de_faltas/dados/Faltas.xlsx',index=False)
-            shutil.copy('utils/analise_de_faltas/dados/Faltas.xlsx', os.path.join(os.path.expanduser("~"), 'Downloads'))
+            pd.DataFrame(self.__dados_VT).to_excel('utils/data/Faltas.xlsx',index=False)
+            shutil.copy('utils/data/Faltas.xlsx', os.path.join(os.path.expanduser("~"), 'Downloads'))
         else:
-            pd.DataFrame(self.__dados_BE).to_excel('utils/analise_de_faltas/dados/Faltas.xlsx',index=False)
-            shutil.copy('utils/analise_de_faltas/dados/Faltas.xlsx', os.path.join(os.path.expanduser("~"), 'Downloads'))           
+            pd.DataFrame(self.__dados_BE).to_excel('utils/data/Faltas.xlsx',index=False)
+            shutil.copy('utils/data/Faltas.xlsx', os.path.join(os.path.expanduser("~"), 'Downloads'))           
 
     def __limpar_listas(self):
         for chave in self.__dados_BE:

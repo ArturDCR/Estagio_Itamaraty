@@ -5,8 +5,8 @@ import datetime
 
 class Gerador_de_declaracao:
     def __init__(self):
-        self.__modelo = dc(os.path.join('utils/gerador_de_declaracao/dados', 'Modelo.docx'))
-        self.__SCE = pd.read_excel(os.path.join('utils/gerador_de_declaracao/dados', 'Sce.xlsx'))
+        self.__modelo = dc(os.path.join('utils/data', 'Modelo.docx'))
+        self.__SCE = pd.read_excel(os.path.join('utils/data', 'Sce.xlsx'))
  
 
         self.__dia = datetime.datetime.now().day

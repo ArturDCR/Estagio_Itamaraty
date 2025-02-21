@@ -15,10 +15,10 @@ class Interface_mala_direta:
             self.__frame_botoes = tk.Frame(root)
             self.__frame_botoes.pack(pady=20)
 
-            self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_Gerador_mala_direta('SCE'))
+            self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
             self.__upload_sce_button.pack(pady=10)
 
-            self.__upload_modelo_button = tk.Button(self.__frame_botoes, text='Upload Modelo', command=lambda: self.__upload_file_Gerador_mala_direta('Modelo'))
+            self.__upload_modelo_button = tk.Button(self.__frame_botoes, text='Upload Modelo', command=lambda: self.__confirm_upload('Modelo'))
             self.__upload_modelo_button.pack(pady=10)
 
             self.__variavel_dia = None
@@ -70,6 +70,11 @@ class Interface_mala_direta:
             self.__analyze_button.bind("<Button-1>", self.__inserir_texto)
 
             self.__frame_botoes.mainloop()
+
+    def __confirm_upload(self, tipo):
+        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        if resposta:
+            self.__upload_file_Gerador_mala_direta(tipo)
     
     def __Set_dia(self, *args):
         self.__variavel_dia = self.__variavel_escolha_dia.get()
@@ -111,7 +116,7 @@ class Interface_mala_direta:
         if file_path:
             print(f'Arquivo selecionado para {upload_type}: {file_path}')
 
-            destination_directory = 'utils/gerador_mala_direta/dados'
+            destination_directory = 'utils/data'
 
             if upload_type == 'SCE':
                 new_file_name = 'Sce.xlsx'

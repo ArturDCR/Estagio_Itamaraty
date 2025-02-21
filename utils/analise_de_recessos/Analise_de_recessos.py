@@ -4,7 +4,7 @@ from datetime import datetime
 
 class Analise_de_recessos:
     def __init__(self):
-        self.__RECESSOS = pd.read_excel(os.path.join("utils/analise_de_recessos/dados","Recessos.xlsx"))
+        self.__RECESSOS = pd.read_excel(os.path.join("utils/data","Recessos.xlsx"))
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser("~"), 'Downloads'), f"Resultado Analise de Recessos {datetime.now().strftime('%Y_%m_%d')}.xlsx")
 
         self.__dados = {

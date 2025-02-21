@@ -4,8 +4,8 @@ import os
 
 class Analise_de_vigencia:
     def __init__(self):
-        self.__SCE = pd.read_excel(os.path.join("utils/analise_de_vigencias/dados","Sce.xlsx"))
-        self.__VIGENCIA = pd.read_excel(os.path.join("utils/analise_de_vigencias/dados","Vigentes.xlsx"))
+        self.__SCE = pd.read_excel(os.path.join("utils/data","Sce.xlsx"))
+        self.__VIGENCIA = pd.read_excel(os.path.join("utils/data","Vigentes.xlsx"))
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser("~"), 'Downloads'), f"Resultado Analise de Vigencias {datetime.now().strftime('%Y_%m_%d')}.xlsx")
 
         self.__dados = {

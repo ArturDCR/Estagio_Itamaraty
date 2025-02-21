@@ -14,16 +14,16 @@ class Interface_desligamentos:
         self.__frame_botoes = tk.Frame(root)
         self.__frame_botoes.pack(pady=20)
 
-        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__upload_file_Calculadora_de_Desligamentos('MRE'))
+        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__confirm_upload('MRE'))
         self.__upload_mre_button.pack(pady=10)
 
-        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_Calculadora_de_Desligamentos('SCE'))
+        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
         self.__upload_sce_button.pack(pady=10)
 
-        self.__upload_recessos_button = tk.Button(self.__frame_botoes, text='Upload Recessos', command=lambda: self.__upload_file_Calculadora_de_Desligamentos('Recessos'))
+        self.__upload_recessos_button = tk.Button(self.__frame_botoes, text='Upload Recessos', command=lambda: self.__confirm_upload('Recessos'))
         self.__upload_recessos_button.pack(pady=10)
 
-        self.__upload_faltas_button = tk.Button(self.__frame_botoes, text='Upload Faltas', command=lambda: self.__upload_file_Calculadora_de_Desligamentos('Faltas'))
+        self.__upload_faltas_button = tk.Button(self.__frame_botoes, text='Upload Faltas', command=lambda: self.__confirm_upload('Faltas'))
         self.__upload_faltas_button.pack(pady=10)
 
         self.__entrada_cpf = tk.Entry(self.__frame_botoes, font=('Arial', 14))
@@ -48,6 +48,11 @@ class Interface_desligamentos:
         self.__analyze_button.bind("<Button-1>", self.__inserir_texto)
 
         self.__frame_botoes.mainloop()
+
+    def __confirm_upload(self, tipo):
+        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        if resposta:
+            self.__upload_file_Calculadora_de_Desligamentos(tipo)
     
     def __inserir_texto(self, event):
         if self.__entrada_cpf.get() == "":
@@ -102,7 +107,7 @@ class Interface_desligamentos:
         if file_path:
             print(f'Arquivo selecionado para {upload_type}: {file_path}')
 
-            destination_directory = 'utils/gerador_de_desligamentos/dados'
+            destination_directory = 'utils/data'
 
             if upload_type == 'MRE':
                 new_file_name = 'Mre.xlsx'

@@ -14,7 +14,7 @@ class Interface_vigencia:
         self.__frame_botoes = tk.Frame(root)
         self.__frame_botoes.pack(pady=20)
 
-        self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_Analise_de_Vigencia('SCE'))
+        self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
         self.__upload_folhas_button.pack(pady=10)
 
         self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Análise', command= self.__run_analyzer_Analise_de_Vigencia)
@@ -25,12 +25,17 @@ class Interface_vigencia:
 
         self.__frame_botoes.mainloop()
 
+    def __confirm_upload(self, tipo):
+        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        if resposta:
+            self.__upload_file_Analise_de_Vigencia(tipo)
+
     def __upload_file_Analise_de_Vigencia(self, upload_type):
         file_path = filedialog.askopenfilename()
         if file_path:
             print(f'Arquivo selecionado para {upload_type}: {file_path}')
             
-            destination_directory = 'utils/analise_de_vigencias/dados'
+            destination_directory = 'utils/data'
             
             if upload_type == 'SCE':
                 new_file_name = 'Sce.xlsx'

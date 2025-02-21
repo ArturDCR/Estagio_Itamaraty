@@ -4,9 +4,9 @@ from datetime import datetime
 
 class Conferencia_ciee:
     def __init__(self):
-        self.__MRE = pd.read_excel(os.path.join('utils/conferencia_ciee/dados', 'Mre.xlsx'))
-        self.__SCE = pd.read_excel(os.path.join('utils/conferencia_ciee/dados', 'Sce.xlsx'))
-        self.__CIEE = pd.read_excel(os.path.join('utils/conferencia_ciee/dados', 'Ciee.xlsx'))
+        self.__MRE = pd.read_excel(os.path.join('utils/data', 'Mre.xlsx'))
+        self.__SCE = pd.read_excel(os.path.join('utils/data', 'Sce.xlsx'))
+        self.__CIEE = pd.read_excel(os.path.join('utils/data', 'Ciee.xlsx'))
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser('~'), 'Downloads'), f"Resultado conferencia CIEE {datetime.now().strftime('%Y_%m_%d')}.xlsx")
 
         self.__cpf_ciee = []

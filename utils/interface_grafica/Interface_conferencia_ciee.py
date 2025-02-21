@@ -14,13 +14,13 @@ class Interface_conferencia_ciee():
         self.__frame_botoes = tk.Frame(root)
         self.__frame_botoes.pack(pady=20)
 
-        self.__upload_ciee_button = tk.Button(self.__frame_botoes, text='Upload CIEE', command=lambda: self.__upload_file_conferencia_ciee('CIEE'))
+        self.__upload_ciee_button = tk.Button(self.__frame_botoes, text='Upload CIEE', command=lambda: self.__confirm_upload('CIEE'))
         self.__upload_ciee_button.pack(pady=10)
 
-        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__upload_file_conferencia_ciee('MRE'))
+        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__confirm_upload('MRE'))
         self.__upload_mre_button.pack(pady=10)
 
-        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_conferencia_ciee('SCE'))
+        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
         self.__upload_sce_button.pack(pady=10)
 
         self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Conferência', command= self.__run_analyzer_conferencia_ciee)
@@ -30,13 +30,18 @@ class Interface_conferencia_ciee():
         self.__barra_progresso.pack(pady=20)
 
         self.__frame_botoes.mainloop()
+
+    def __confirm_upload(self, tipo):
+        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        if resposta:
+            self.__upload_file_conferencia_ciee(tipo)
     
     def __upload_file_conferencia_ciee(self, upload_type):
         file_path = filedialog.askopenfilename()
         if file_path:
             print(f'Arquivo selecionado para {upload_type}: {file_path}')
             
-            destination_directory = 'utils/conferencia_ciee/dados'
+            destination_directory = 'utils/data'
             
             if upload_type == 'CIEE':
                 new_file_name = 'Ciee.xlsx'
