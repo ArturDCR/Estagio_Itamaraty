@@ -11,19 +11,19 @@ class Analise_de_faltas:
     def __swicth (self, aux):
         if str(aux).__contains__('.'):
             if len(str(aux).split('.')[-1]) == 2:
-                return f'000000{str(aux).replace('.',',')}'
+                return f'000000{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 3:
-                return f'00000{str(aux).replace('.',',')}'
+                return f'00000{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 4:
-                return f'0000{str(aux).replace('.',',')}'
+                return f'0000{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 5:
-                return f'000{str(aux).replace('.',',')}'
+                return f'000{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 6:
-                return f'00{str(aux).replace('.',',')}'
+                return f'00{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 7:
-                return f'0{str(aux).replace('.',',')}'
+                return f'0{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 8:
-                return f'{str(aux).replace('.',',')}'
+                return f'{str(aux).replace(".",",")}'
         else:
             if len(str(aux)) == 2:
                 return f'000000{aux},00'

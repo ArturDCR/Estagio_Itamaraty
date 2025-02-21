@@ -70,7 +70,7 @@ class Gerador_de_faltas:
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
                                 self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,23].split(';')) + len(self.__FORMS.iloc[VT,32].split(';')))
-                                self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,23]).split(';') + self.__FORMS.iloc[VT,32].split(';')} de {mes[:3]}')
+                                self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,23]).split(";") + self.__FORMS.iloc[VT,32].split(";")} de {mes[:3]}')
                                 self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,23].split(';')) + len(self.__FORMS.iloc[VT,32].split(';')))*10)
                         #Decisão que lida com justificada > 1 e injustificada = 1
                         elif len(self.__FORMS.iloc[VT,23].split(';')) > 1 and len(self.__FORMS.iloc[VT,32].split()) == 1:
@@ -85,7 +85,7 @@ class Gerador_de_faltas:
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
                             self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,23].split(';')) + len(self.__FORMS.iloc[VT,32].split()))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,23]).split(';') + self.__FORMS.iloc[VT,32].split()} de {mes[:3]}')
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,23]).split(";") + self.__FORMS.iloc[VT,32].split()} de {mes[:3]}')
                             self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,23].split(';')) + len(self.__FORMS.iloc[VT,32].split()))*10)
                         #Decisão que lida com justificada = 1 e injustificada > 1
                         elif len(self.__FORMS.iloc[VT,23].split()) == 1 and len(self.__FORMS.iloc[VT,32].split(';')) > 1:
@@ -100,7 +100,7 @@ class Gerador_de_faltas:
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
                             self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,23].split()) + len(self.__FORMS.iloc[VT,32].split(';')))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,23]).split() + self.__FORMS.iloc[VT,32].split(';')} de {mes[:3]}')
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,23]).split() + self.__FORMS.iloc[VT,32].split(";")} de {mes[:3]}')
                             self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,23].split()) + len(self.__FORMS.iloc[VT,32].split(';')))*10)
                         #Decisão que lida com justificada = 1 e injustificada = 1
                         elif len(self.__FORMS.iloc[VT,23].split()) == 1 and len(self.__FORMS.iloc[VT,32].split()) == 1:
@@ -132,7 +132,7 @@ class Gerador_de_faltas:
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
                             self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,23].split(';')))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,23]).split(';')} de {mes[:3]}')
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,23]).split(";")} de {mes[:3]}')
                             self.__dados_VT['valor_total'].append(len(self.__FORMS.iloc[VT,23].split(';'))*10)
                         #Decisão que lida com justificada == 1
                         else:
@@ -164,7 +164,7 @@ class Gerador_de_faltas:
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
                             self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,32].split(';')))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,32].split(';'))} de {mes[:3]}')
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,32].split(";"))} de {mes[:3]}')
                             self.__dados_VT['valor_total'].append(len(self.__FORMS.iloc[VT,32].split(';'))*10)
                         else:
                             #Bloco que adiciona valores ao dicionario de acordo com injustificada == 1
@@ -205,7 +205,7 @@ class Gerador_de_faltas:
                                         self.__dados_BE['valor_total'].append(round(len(self.__FORMS.iloc[BE,32].split(';'))*(float(str(self.__SCE.iloc[salario,22]).replace(',','.'))/30),2))
                                         self.__dados_BE['salario'].append(str(self.__SCE.iloc[salario,22]))
                             self.__dados_BE['valor_dias'].append(len(self.__FORMS.iloc[BE,32].split(';')))
-                            self.__dados_BE['dias'].append(f'{str(self.__FORMS.iloc[BE,32].split(';'))} de {mes[:3]}')
+                            self.__dados_BE['dias'].append(f'{str(self.__FORMS.iloc[BE,32].split(";"))} de {mes[:3]}')
                         #Decisão que verifica se injustificada = 1
                         else:
                             #Bloco que adiciona valores ao dicionario de acordo com injustificada = 1
