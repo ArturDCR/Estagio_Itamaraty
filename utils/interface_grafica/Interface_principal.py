@@ -8,6 +8,7 @@ from utils.interface_grafica.Interface_SouGov import Interface_SouGov as SouGov
 from utils.interface_grafica.Interface_desligamentos import Interface_desligamentos as desligamentos
 from utils.interface_grafica.Interface_declaracao import Interface_declaracao as declaracao
 from utils.interface_grafica.Interface_maco_de_desligamento import Interface_maço_desligamento as maco
+from utils.interface_grafica.Interface_gerador_lote import Interface_gerador_lote as lote
 
 class Interface_principal:
     def __init__(self):
@@ -40,7 +41,8 @@ class Interface_principal:
             ('Análise SouGov', 'Analisador SouGov'),
             ('Gerador de Desligamentos', 'Gerador de Desligamentos'),
             ('Gerador de Declarações', 'Gerador de Declarações'),
-            ('Gerador Maço de Desligamento', 'Gerador Maço de Desligamento')
+            ('Gerador Maço de Desligamento', 'Gerador Maço de Desligamento'),
+            ('Gerador Ficha Financeira em Lote', 'Gerador Ficha Financeira em Lote')
         ]
 
         for texto, comando in botoes:
@@ -82,3 +84,6 @@ class Interface_principal:
         
         elif titulo == 'Gerador Maço de Desligamento':
             maco(nova_tela)
+
+        elif titulo == 'Gerador Ficha Financeira em Lote':
+            lote(nova_tela)
