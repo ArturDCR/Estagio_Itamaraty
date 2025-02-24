@@ -4,13 +4,10 @@ from PIL import Image, ImageTk
 
 from utils.interface_grafica.Interface_conferencia_ciee import Interface_conferencia_ciee as Ciee
 from utils.interface_grafica.Interface_faltas import Interface_analise_de_faltas as Faltas
-from utils.interface_grafica.Interface_vigencia import Interface_vigencia as vigencias
 from utils.interface_grafica.Interface_SouGov import Interface_SouGov as SouGov
-from utils.interface_grafica.Interface_descontos import Interface_descontos as desconto
-from utils.interface_grafica.Interface_recessos import Interface_recessos as recessos
 from utils.interface_grafica.Interface_desligamentos import Interface_desligamentos as desligamentos
 from utils.interface_grafica.Interface_declaracao import Interface_declaracao as declaracao
-from utils.interface_grafica.Interface_mala_direta import Interface_mala_direta as mala_direta
+from utils.interface_grafica.Interface_maco_de_desligamento import Interface_maço_desligamento as maco
 
 class Interface_principal:
     def __init__(self):
@@ -25,7 +22,7 @@ class Interface_principal:
         self.__canvas = tk.Canvas(self.__root, width=self.__largura, height=self.__altura)
         self.__canvas.pack(fill="both", expand=True)
 
-        self.__imagem_original = Image.open("utils/interface_grafica/dados/Meteoro.jpg")
+        self.__imagem_original = Image.open("utils/interface_grafica/dados/Fundo.jpg")
         self.__imagem_tk = None
 
         self.__bg_id = self.__canvas.create_image(0, 0, anchor="nw", image=None)
@@ -40,13 +37,10 @@ class Interface_principal:
         botoes = [
             ('Conferência CIEE', 'Conferencia CIEE'),
             ('Análise de Faltas', 'Analisador de Faltas'),
-            ('Análise de Vigência', 'Analisador de Vigência'),
             ('Análise SouGov', 'Analisador SouGov'),
-            ('Análise de Recessos', 'Analisador de Recessos'),
-            ('Análise de Descontos', 'Analisador de Descontos'),
             ('Gerador de Desligamentos', 'Gerador de Desligamentos'),
             ('Gerador de Declarações', 'Gerador de Declarações'),
-            ('Gerador Mala Direta', 'Gerador Mala Direta')
+            ('Gerador Maço de Desligamento', 'Gerador Maço de Desligamento')
         ]
 
         for texto, comando in botoes:
@@ -77,17 +71,8 @@ class Interface_principal:
         elif titulo == 'Analisador de Faltas':
             Faltas(nova_tela)
 
-        elif titulo == 'Analisador de Vigência':
-            vigencias(nova_tela)
-
         elif titulo == 'Analisador SouGov':
             SouGov(nova_tela)
-
-        elif titulo == 'Analisador de Descontos':
-            desconto(nova_tela)
-
-        elif titulo == 'Analisador de Recessos':
-            recessos(nova_tela)
 
         elif titulo == 'Gerador de Desligamentos':
             desligamentos(nova_tela)
@@ -95,5 +80,5 @@ class Interface_principal:
         elif titulo == 'Gerador de Declarações':
             declaracao(nova_tela)
         
-        elif titulo == 'Gerador Mala Direta':
-            mala_direta(nova_tela)
+        elif titulo == 'Gerador Maço de Desligamento':
+            maco(nova_tela)
