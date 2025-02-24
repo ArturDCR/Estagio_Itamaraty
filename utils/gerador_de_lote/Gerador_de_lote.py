@@ -36,7 +36,7 @@ class Gerador_de_lote():
         self.__saida.write(f'035000{ano_final}{ datetime.now().month:02d}000\n')
 
         for inserir in self.__siape:
-            self.__saida.write(f'1{self.__cpf}3500{inserir}{ano_inicial}{ano_final}1\n')
+            self.__saida.write(f'1{self.__cpf}35000{inserir}{ano_inicial}{ano_final}1\n')
         
         self.__saida.write(f'9{self.__swicth(len(self.__siape))}')
 
