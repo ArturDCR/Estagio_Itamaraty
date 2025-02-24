@@ -15,7 +15,7 @@ class Interface_gerador_lote():
         self.__frame_botoes = tk.Frame(root)
         self.__frame_botoes.pack(pady=20)
 
-        self.__anos = [str(ano) for ano in range(2023, datetime.now().year + 1)]
+        self.__anos = [str(ano) for ano in range(2020, datetime.now().year + 1)]
 
         self.__variavel_ano_inicio = None
         self.__variavel_ano_final = None
