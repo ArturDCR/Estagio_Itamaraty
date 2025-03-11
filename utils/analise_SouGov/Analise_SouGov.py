@@ -4,9 +4,9 @@ from datetime import datetime
 
 class Analise_SouGov:
     def __init__(self):
-        self.__TA = pd.read_excel(os.path.join("utils/analise_SouGov/dados","Tas.xlsx"))
-        self.__EMAILS = pd.read_excel(os.path.join("utils/analise_SouGov/dados","Emails.xlsx"))
-        self.__SCE = pd.read_excel(os.path.join("utils/analise_SouGov/dados","Sce.xlsx"))
+        self.__TA = pd.read_excel(os.path.join("utils/data","Tas.xlsx"))
+        self.__EMAILS = pd.read_excel(os.path.join("utils/data","Emails.xlsx"))
+        self.__SCE = pd.read_excel(os.path.join("utils/data","Sce.xlsx"))
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser("~"), 'Downloads'), f"Resultado Analise SouGov {datetime.now().strftime('%Y_%m_%d')}.xlsx")
 
         self.__aux = []

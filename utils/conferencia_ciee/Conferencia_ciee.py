@@ -4,9 +4,9 @@ from datetime import datetime
 
 class Conferencia_ciee:
     def __init__(self):
-        self.__MRE = pd.read_excel(os.path.join('utils/conferencia_ciee/dados', 'Mre.xlsx'))
-        self.__SCE = pd.read_excel(os.path.join('utils/conferencia_ciee/dados', 'Sce.xlsx'))
-        self.__CIEE = pd.read_excel(os.path.join('utils/conferencia_ciee/dados', 'Ciee.xlsx'))
+        self.__MRE = pd.read_excel(os.path.join('utils/data', 'Mre.xlsx'))
+        self.__SCE = pd.read_excel(os.path.join('utils/data', 'Sce.xlsx'))
+        self.__CIEE = pd.read_excel(os.path.join('utils/data', 'Ciee.xlsx'))
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser('~'), 'Downloads'), f"Resultado conferencia CIEE {datetime.now().strftime('%Y_%m_%d')}.xlsx")
 
         self.__cpf_ciee = []
@@ -82,7 +82,7 @@ class Conferencia_ciee:
             elif d in self.__cpf_sce:
                 for a in range(len(self.__SCE.iloc[:,6])):
                     if d == self.__conversor_de_cpf(str(self.__SCE.iloc[a,6])):
-                        if str(self.__SCE.iloc[a,28]) != 'nan':
+                        if str(self.__SCE.iloc[a,28]).__contains__('/'):
                             self.__switch('desligado',d)
                         else:
                             self.__switch('inicio',d)

@@ -5,8 +5,8 @@ import datetime
 
 class Gerador_de_declaracao:
     def __init__(self):
-        self.__modelo = dc(os.path.join('utils/gerador_de_declaracao/dados', 'Modelo.docx'))
-        self.__SCE = pd.read_excel(os.path.join('utils/gerador_de_declaracao/dados', 'Sce.xlsx'))
+        self.__modelo = dc(os.path.join('utils/data', 'Modelo.docx'))
+        self.__SCE = pd.read_excel(os.path.join('utils/data', 'Sce.xlsx'))
  
 
         self.__dia = datetime.datetime.now().day
@@ -52,10 +52,10 @@ class Gerador_de_declaracao:
                         if not str(self.__SCE.iloc[dados,28]).__contains__('/'):
                             linhas.text = linhas.text.replace('DATA', self.__SCE.iloc[dados,23])
                         else:
-                            linhas.text = linhas.text.replace('DATA', f'{self.__SCE.iloc[dados,23].split('a')[0]} a {self.__SCE.iloc[dados,28]}')
+                            linhas.text = linhas.text.replace('DATA', f'{self.__SCE.iloc[dados,23].split("a")[0]}a {self.__SCE.iloc[dados,28]}')
                         linhas.text = linhas.text.replace('CH', self.__SCE.iloc[dados,16].replace('H',''))
                         if int(self.__SCE.iloc[dados,16].replace('H','')) == 6:
-                            linhas.text = linhas.text.replace('CS', str(40))
+                            linhas.text = linhas.text.replace('CS', str(30))
                         else:
                             linhas.text = linhas.text.replace('CS', str(20))
                     elif 'ATUAL' in linhas.text:

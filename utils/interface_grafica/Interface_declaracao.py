@@ -14,10 +14,10 @@ class Interface_declaracao:
             self.__frame_botoes = tk.Frame(root)
             self.__frame_botoes.pack(pady=20)
 
-            self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_Gerador_de_declaracao('SCE'))
+            self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
             self.__upload_sce_button.pack(pady=10)
 
-            self.__upload_modelo_button = tk.Button(self.__frame_botoes, text='Upload Modelo', command=lambda: self.__upload_file_Gerador_de_declaracao('Modelo'))
+            self.__upload_modelo_button = tk.Button(self.__frame_botoes, text='Upload Modelo', command=lambda: self.__confirm_upload('Modelo'))
             self.__upload_modelo_button.pack(pady=10)
 
             self.__entrada_cpf = tk.Entry(self.__frame_botoes, font=('Arial', 14))
@@ -35,6 +35,11 @@ class Interface_declaracao:
             self.__analyze_button.bind("<Button-1>", self.__inserir_texto)
 
             self.__frame_botoes.mainloop()
+
+    def __confirm_upload(self, tipo):
+        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        if resposta:
+            self.__upload_file_Gerador_de_declaracao(tipo)
     
     def __inserir_texto(self, event):
         if self.__entrada_cpf.get() == "":
@@ -67,7 +72,7 @@ class Interface_declaracao:
         if file_path:
             print(f'Arquivo selecionado para {upload_type}: {file_path}')
 
-            destination_directory = 'utils/gerador_de_declaracao/dados'
+            destination_directory = 'utils/data'
 
             if upload_type == 'SCE':
                 new_file_name = 'Sce.xlsx'
@@ -79,8 +84,6 @@ class Interface_declaracao:
             destination_path = os.path.join(destination_directory, new_file_name)
             shutil.copy(file_path, destination_path)
             print(f'Arquivo copiado e renomeado para: {destination_path}')
-
-            self.__frame_botoes.mainloop()
 
     def __run_analyzer_Gerador_de_declaracao(self):
         try:

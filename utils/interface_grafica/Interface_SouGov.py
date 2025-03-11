@@ -49,13 +49,13 @@ class Interface_SouGov:
         self.__caixa_opcoes = tk.OptionMenu(self.__frame_botoes, self.__variavel_escolha_ano, *self.__anos)
         self.__caixa_opcoes.pack(pady=10)
 
-        self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload Emails', command=lambda: self.__upload_file_Analise_SouGov('Emails'))
+        self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload Emails', command=lambda: self.__confirm_upload('Emails'))
         self.__upload_folhas_button.pack(pady=10)
 
-        self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload TA', command=lambda: self.__upload_file_Analise_SouGov('TA'))
+        self.__upload_folhas_button = tk.Button(self.__frame_botoes, text='Upload TA', command=lambda: self.__confirm_upload('TA'))
         self.__upload_folhas_button.pack(pady=10)
     
-        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload Sce', command=lambda: self.__upload_file_Analise_SouGov('Sce'))
+        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload Sce', command=lambda: self.__confirm_upload('Sce'))
         self.__upload_sce_button.pack(pady=10)
 
         self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Análise', command= self.__run_analyzer_Analise_SouGov)
@@ -64,23 +64,12 @@ class Interface_SouGov:
         self.__barra_progresso = ttk.Progressbar(self.__frame_botoes, orient="horizontal", length=300, mode="determinate")
         self.__barra_progresso.pack(pady=20)
 
-        self.__text_area = tk.Text(root, height=10, width=90)
-        self.__text_area.pack(pady=10)
-        self.__ler_arquivo()
-
         self.__frame_botoes.mainloop()
-    
-    def __ler_arquivo(self):
-        caminho_arquivo = "utils/interface_grafica/dados/informacoes_SouGov.txt"
-        try:
-            with open(caminho_arquivo, 'r') as arquivo:
-                conteudo = arquivo.read()
 
-            self.__text_area.delete(1.0, tk.END)
-            self.__text_area.insert(tk.END, conteudo)
-            self.__text_area.config(state=tk.DISABLED)
-        except FileNotFoundError:
-            self.__text_area.insert(tk.END, "Arquivo não encontrado.")
+    def __confirm_upload(self, tipo):
+        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        if resposta:
+            self.__upload_file_Analise_SouGov(tipo)
 
     def __Set_dia(self, *args):
         self.__variavel_dia = self.__variavel_escolha_dia.get()
@@ -96,7 +85,7 @@ class Interface_SouGov:
         if file_path:
             print(f'Arquivo selecionado para {upload_type}: {file_path}')
 
-            destination_directory = 'utils/analise_SouGov/dados'
+            destination_directory = 'utils/data'
 
             if upload_type == 'Emails':
                 new_file_name = 'Emails.xlsx'
@@ -110,7 +99,6 @@ class Interface_SouGov:
             destination_path = os.path.join(destination_directory, new_file_name)
             shutil.copy(file_path, destination_path)
             print(f'Arquivo copiado e renomeado para: {destination_path}')
-            self.__frame_botoes.mainloop()
 
     def __run_analyzer_Analise_SouGov(self):
         try:

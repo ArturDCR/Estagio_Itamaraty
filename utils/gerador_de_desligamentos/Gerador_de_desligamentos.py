@@ -6,12 +6,12 @@ from openpyxl import load_workbook
 
 class Gerador_de_desligamentos:
     def __init__(self):
-        self.__MRE = pd.read_excel(os.path.join("utils/gerador_de_desligamentos/dados","Mre.xlsx"))
-        self.__SCE = pd.read_excel(os.path.join("utils/gerador_de_desligamentos/dados","Sce.xlsx"))
+        self.__MRE = pd.read_excel(os.path.join("utils/data","Mre.xlsx"))
+        self.__SCE = pd.read_excel(os.path.join("utils/data","Sce.xlsx"))
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser("~"), 'Downloads'), f"Desligamentos {datetime.now().strftime('%Y_%m_%d')}")
-        self.__MODELO = os.path.join("utils/gerador_de_desligamentos/dados",'Modelo_desligamento.xlsx')
-        self.__RECESSOS = pd.read_excel(os.path.join("utils/gerador_de_desligamentos/dados","Recessos.xlsx"))
-        self.__FALTAS = pd.read_excel(os.path.join("utils/gerador_de_desligamentos/dados","Faltas.xlsx"))
+        self.__MODELO = os.path.join("utils/data",'Modelo_desligamento.xlsx')
+        self.__RECESSOS = pd.read_excel(os.path.join("utils/data","Recessos.xlsx"))
+        self.__FALTAS = pd.read_excel(os.path.join("utils/data","Faltas.xlsx"))
 
         self.__gerar_pasta_saida()
 

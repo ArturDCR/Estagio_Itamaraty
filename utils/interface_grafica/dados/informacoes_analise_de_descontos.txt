@@ -1,5 +1,0 @@
-A analise de descontos tem como objetivo listar todos os descontos relativos ao mês e ao 
-ano de cada estágiario(a).
-
-Documentos necessários:
-    Documento de descontos em PDF.

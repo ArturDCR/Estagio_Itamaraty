@@ -5,25 +5,25 @@ from utils.analise_de_faltas import Hob
 
 class Analise_de_faltas:
     def __init__(self):
-        self.__FALTAS = pd.read_excel(os.path.join("utils/analise_de_faltas/dados","Faltas.xlsx"))
-        self.__SAIDA = open('utils/analise_de_faltas/dados/saida.txt', 'w')
+        self.__FALTAS = pd.read_excel(os.path.join("utils/data","Faltas.xlsx"))
+        self.__SAIDA = open('utils/data/saida.txt', 'w')
 
     def __swicth (self, aux):
         if str(aux).__contains__('.'):
             if len(str(aux).split('.')[-1]) == 2:
-                return f'000000{str(aux).replace('.',',')}'
+                return f'000000{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 3:
-                return f'00000{str(aux).replace('.',',')}'
+                return f'00000{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 4:
-                return f'0000{str(aux).replace('.',',')}'
+                return f'0000{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 5:
-                return f'000{str(aux).replace('.',',')}'
+                return f'000{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 6:
-                return f'00{str(aux).replace('.',',')}'
+                return f'00{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 7:
-                return f'0{str(aux).replace('.',',')}'
+                return f'0{str(aux).replace(".",",")}'
             elif len(str(aux).split('.')[-1]) == 8:
-                return f'{str(aux).replace('.',',')}'
+                return f'{str(aux).replace(".",",")}'
         else:
             if len(str(aux)) == 2:
                 return f'000000{aux},00'
@@ -59,13 +59,13 @@ class Analise_de_faltas:
     def __gerar_saida(self):
         self.__SAIDA.close()
 
-        os.rename('utils/analise_de_faltas/dados/saida.txt','utils/analise_de_faltas/dados/dadosFPATMOVFIN_V3_REF.csv')
+        os.rename('utils/data/saida.txt','utils/data/dadosFPATMOVFIN_V3_REF.csv')
 
         Hob.Hob()
     
     def __limpar_dados(self):
-        os.remove('utils/analise_de_faltas/dados/dadosFPATMOVFIN_V3_REF.csv')
-        os.remove('utils/analise_de_faltas/dados/Faltas.xlsx')
+        os.remove('utils/data/dadosFPATMOVFIN_V3_REF.csv')
+        os.remove('utils/data/Faltas.xlsx')
     
     def iniciar(self, escolha, mes, ano):
         self.__gerar_dados(escolha, mes, ano)

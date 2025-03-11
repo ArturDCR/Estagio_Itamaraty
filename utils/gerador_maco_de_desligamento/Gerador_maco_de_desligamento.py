@@ -3,10 +3,10 @@ import pandas as pd
 import os
 from datetime import datetime as dt
 
-class Gerador_mala_direta():
+class Gerador_maco_de_desligamento():
     def __init__(self):
-        self.__modelo = dc(os.path.join('utils/gerador_mala_direta/dados', 'Modelo.docx'))
-        self.__SCE = pd.read_excel(os.path.join('utils/gerador_mala_direta/dados', 'Sce.xlsx'))
+        self.__modelo = dc(os.path.join('utils/data', 'Modelo.docx'))
+        self.__SCE = pd.read_excel(os.path.join('utils/data', 'Sce.xlsx'))
     
     def __conversor_de_cpf(self, cpf):
         if len(cpf) != 11 and cpf[0] != '0' and '.' not in cpf:

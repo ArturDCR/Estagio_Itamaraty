@@ -8,17 +8,17 @@ import threading
 import time
 from datetime import datetime
 
-from utils.gerador_mala_direta.Gerador_mala_direta import Gerador_mala_direta
+from utils.gerador_maco_de_desligamento.Gerador_maco_de_desligamento import Gerador_maco_de_desligamento
 
-class Interface_mala_direta:
+class Interface_maço_desligamento:
     def __init__(self, root):
             self.__frame_botoes = tk.Frame(root)
             self.__frame_botoes.pack(pady=20)
 
-            self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_Gerador_mala_direta('SCE'))
+            self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
             self.__upload_sce_button.pack(pady=10)
 
-            self.__upload_modelo_button = tk.Button(self.__frame_botoes, text='Upload Modelo', command=lambda: self.__upload_file_Gerador_mala_direta('Modelo'))
+            self.__upload_modelo_button = tk.Button(self.__frame_botoes, text='Upload Modelo', command=lambda: self.__confirm_upload('Modelo'))
             self.__upload_modelo_button.pack(pady=10)
 
             self.__variavel_dia = None
@@ -61,7 +61,7 @@ class Interface_mala_direta:
             self.__entrada_cpf.bind("<Button-1>", self.__limpar_texto_cpf)
             self.__entrada_cpf.bind("<KeyRelease> ", self.__formatar_cpf) 
 
-            self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado Mala Direta', command= self.__run_analyzer_Gerador_mala_direta)
+            self.__analyze_button = tk.Button(self.__frame_botoes, text='Gerar Maço de Desligamento', command= self.__run_analyzer_Gerador_Gerador_maco_de_desligamento)
             self.__analyze_button.pack(pady=10)
 
             self.__barra_progresso = ttk.Progressbar(self.__frame_botoes, orient="horizontal", length=300, mode="determinate")
@@ -70,6 +70,11 @@ class Interface_mala_direta:
             self.__analyze_button.bind("<Button-1>", self.__inserir_texto)
 
             self.__frame_botoes.mainloop()
+
+    def __confirm_upload(self, tipo):
+        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        if resposta:
+            self.__upload_file_Gerador_mac_de_desligamento(tipo)
     
     def __Set_dia(self, *args):
         self.__variavel_dia = self.__variavel_escolha_dia.get()
@@ -106,12 +111,12 @@ class Interface_mala_direta:
         self.__entrada_cpf.delete(0, tk.END)
         self.__entrada_cpf.insert(0, cpf)
      
-    def __upload_file_Gerador_mala_direta(self, upload_type):
+    def __upload_file_Gerador_mac_de_desligamento(self, upload_type):
         file_path = filedialog.askopenfilename()
         if file_path:
             print(f'Arquivo selecionado para {upload_type}: {file_path}')
 
-            destination_directory = 'utils/gerador_mala_direta/dados'
+            destination_directory = 'utils/data'
 
             if upload_type == 'SCE':
                 new_file_name = 'Sce.xlsx'
@@ -124,19 +129,17 @@ class Interface_mala_direta:
             shutil.copy(file_path, destination_path)
             print(f'Arquivo copiado e renomeado para: {destination_path}')
 
-            self.__frame_botoes.mainloop()
-
-    def __run_analyzer_Gerador_mala_direta(self):
+    def __run_analyzer_Gerador_Gerador_maco_de_desligamento(self):
         try:
-            mala_direta = Gerador_mala_direta()
+            maco_desliamento = Gerador_maco_de_desligamento()
             if str(self.__entrada_cpf.get()) != '' and str(self.__entrada_cpf.get()) != 'Insira um CPF' and len(self.__entrada_cpf.get()) == 14:
-                self.__start_task(mala_direta.iniciar(str(self.__entrada_cpf.get()), self.__variavel_dia, self.__meses.index(self.__variavel_mes)+1, self.__variavel_ano))
+                self.__start_task(maco_desliamento.iniciar(str(self.__entrada_cpf.get()), self.__variavel_dia, self.__meses.index(self.__variavel_mes)+1, self.__variavel_ano))
                 messagebox.showinfo('Sucesso', 'Verifique sua pasta de Downloads')
-                print('Gerador de Mala Direta executado com sucesso.')
+                print('Gerador de Maço executado com sucesso.')
             else:
                 messagebox.showerror('Erro', 'Digite um CPF válido')
         except subprocess.CalledProcessError:
-            messagebox.showerror('Erro', 'Erro ao executar o Gerador de Mala Direta.')
+            messagebox.showerror('Erro', 'Erro ao executar o Gerador de Maço de Desligamento.')
 
     def __start_task(self, func):
         thread = threading.Thread(target=func)

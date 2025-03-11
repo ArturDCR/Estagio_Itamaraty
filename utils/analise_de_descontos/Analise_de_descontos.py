@@ -6,7 +6,7 @@ from datetime import datetime
 
 class Analise_de_descontos:
     def __init__(self):
-        self.__DESCONTOS = open(os.path.join('utils/analise_de_descontos/dados', 'Descontos.pdf'), 'rb')
+        self.__DESCONTOS = open(os.path.join('utils/data', 'Descontos.pdf'), 'rb')
         self.__PDF = PyPDF2.PdfReader(self.__DESCONTOS)
         self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser('~'), 'Downloads'), f"Resultado Analise de Descontos {datetime.now().strftime('%Y_%m_%d')}.xlsx")
 
