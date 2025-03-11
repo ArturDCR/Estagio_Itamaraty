@@ -17,13 +17,9 @@ PyPDF2==3.0.1<br>
 python-docx==1.1.2<br>
 
 
-Com <b>Python</b> instalado, faça a instalação das bibliotecas com os seguintes comandos no terminal:
+Com <b>Python</b> instalado, ative o ambiente de desenvolvimento com o seguinte comando:
 ```bash
-pip install pandas
-pip install numpy
-pip install openpyxl
-pip install pillow
-pip install PyPDF2
+source .venv/bin/activate
 ```
 
 ## Execução 🖥️
