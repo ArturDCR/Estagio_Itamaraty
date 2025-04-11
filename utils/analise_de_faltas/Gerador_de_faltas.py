@@ -301,6 +301,6 @@ class Gerador_de_faltas:
     def iniciar(self, escolha, mes, ano):
         self.__gerar_dados(escolha, mes, ano)
         self.__gerar_saida(escolha)
-        # self.__limpar_listas()
-        # analise_faltas = Analise_de_faltas()
-        # analise_faltas.iniciar(escolha, mes, ano)
+        self.__limpar_listas()
+        analise_faltas = Analise_de_faltas()
+        analise_faltas.iniciar(escolha, mes, ano)
