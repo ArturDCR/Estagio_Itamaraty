@@ -45,7 +45,7 @@ class Analise_de_faltas:
             for a in range(len(self.__FALTAS.iloc[:,0])):
                 if str(self.__FALTAS.iloc[a,1]) != 'NÃO ENCONTRADO':
                     if str(self.__FALTAS.iloc[a,2]) != 'nan':
-                        self.__SAIDA.write(f'{(self.__FALTAS.iloc[a,3])},D,82695,6,I,{str(mes)[:3]+str(ano)},"{self.__swicth(self.__FALTAS.iloc[a,5])}","SCE,Folha de ponto e ficha F","{self.__FALTAS.iloc[a,4].replace('[','').replace(']','')}"\n')
+                        self.__SAIDA.write(f'{(self.__FALTAS.iloc[a,3])},D,82695,6,I,{str(mes)[:3]+str(ano)},"{self.__swicth(self.__FALTAS.iloc[a,5])}","SCE,Folha de ponto e ficha F","{self.__FALTAS.iloc[a,5].replace('[','').replace(']','')}"\n')
                 else:
                     pass       
         else:
