@@ -238,9 +238,6 @@ class Gerador_de_faltas:
                             self.__dados_BE['valor_dias'].append(len(str(self.__FORMS.iloc[BE,33]).split()))
                             self.__dados_BE['dias'].append(f'{str(self.__FORMS.iloc[BE,33]).split()} de {mes[:3]}')
 
-        for z in self.__dados_VT:
-            print(len(self.__dados_VT[z]))
-
         for deletar_vt in range(5):
             for cpf_vt in self.__dados_VT['cpf']:
                 if cpf_vt == 'Não encontrado':
