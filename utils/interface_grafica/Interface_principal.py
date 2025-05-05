@@ -5,7 +5,6 @@ from PIL import Image, ImageTk
 from utils.interface_grafica.Interface_conferencia_ciee import Interface_conferencia_ciee as Ciee
 from utils.interface_grafica.Interface_faltas import Interface_analise_de_faltas as Faltas
 from utils.interface_grafica.Interface_SouGov import Interface_SouGov as SouGov
-from utils.interface_grafica.Interface_desligamentos import Interface_desligamentos as desligamentos
 from utils.interface_grafica.Interface_declaracao import Interface_declaracao as declaracao
 from utils.interface_grafica.Interface_maco_de_desligamento import Interface_maço_desligamento as maco
 from utils.interface_grafica.Interface_gerador_lote import Interface_gerador_lote as lote
@@ -39,7 +38,6 @@ class Interface_principal:
             ('Conferência CIEE', 'Conferencia CIEE'),
             ('Análise de Faltas', 'Analisador de Faltas'),
             ('Análise SouGov', 'Analisador SouGov'),
-            ('Gerador de Desligamentos', 'Gerador de Desligamentos'),
             ('Gerador de Declarações', 'Gerador de Declarações'),
             ('Gerador Maço de Desligamento', 'Gerador Maço de Desligamento'),
             ('Gerador Ficha Financeira em Lote', 'Gerador Ficha Financeira em Lote')
@@ -75,9 +73,6 @@ class Interface_principal:
 
         elif titulo == 'Analisador SouGov':
             SouGov(nova_tela)
-
-        elif titulo == 'Gerador de Desligamentos':
-            desligamentos(nova_tela)
         
         elif titulo == 'Gerador de Declarações':
             declaracao(nova_tela)
