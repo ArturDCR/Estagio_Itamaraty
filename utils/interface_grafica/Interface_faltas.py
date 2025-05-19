@@ -18,7 +18,7 @@ class Interface_analise_de_faltas():
         self.__variavel_desconto = None
 
         self.__descontos = ['VT','BE']
-        self.__meses = ['Janeiro','Fevereiro','Março','Abril','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
+        self.__meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
         self.__anos = [str(ano) for ano in range(2023, datetime.now().year + 1)]
 
         self.__variavel_escolha_desconto = tk.StringVar(self.__frame_botoes)
