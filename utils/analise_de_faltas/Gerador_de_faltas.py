@@ -64,9 +64,9 @@ class Gerador_de_faltas:
             for VT in range(len(self.__FORMS.iloc[:,0])):
                 if str(self.__FORMS.iloc[VT,8]).split()[0] == mes and str(self.__FORMS.iloc[VT,8]).split()[-1] == ano:
                     #Decisão que lida com justificada e injustificada != vazio
-                    if str(self.__FORMS.iloc[VT,26]) != 'nan' and str(self.__FORMS.iloc[VT,33]) != 'nan':
+                    if str(self.__FORMS.iloc[VT,26]) != 'nan' and str(str(self.__FORMS.iloc[VT,33])) != 'nan':
                         #Decisão que verifica injustificada e justificada > 1
-                        if len(self.__FORMS.iloc[VT,26].split(';')) > 1 and len(self.__FORMS.iloc[VT,33].split(';')) > 1:
+                        if len(self.__FORMS.iloc[VT,26].split(';')) > 1 and len(str(str(self.__FORMS.iloc[VT,33])).split(';')) > 1:
                             #Bloco que adiciona valores ao dicionario de acordo com injustificada e justificada > 1
                             #Verifica se nome e cpf existem
                             if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
@@ -77,11 +77,11 @@ class Gerador_de_faltas:
                                 self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))         
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split(';')) + len(self.__FORMS.iloc[VT,33].split(';')))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split(";") + self.__FORMS.iloc[VT,33].split(";")} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split(';')) + len(self.__FORMS.iloc[VT,33].split(';')))*10)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split(';')) + len(str(self.__FORMS.iloc[VT,33]).split(';')))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split(";") + str(self.__FORMS.iloc[VT,33]).split(";")} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split(';')) + len(str(self.__FORMS.iloc[VT,33]).split(';')))*10)
                         #Decisão que lida com justificada > 1 e injustificada = 1
-                        elif len(self.__FORMS.iloc[VT,26].split(';')) > 1 and len(self.__FORMS.iloc[VT,33].split()) == 1:
+                        elif len(self.__FORMS.iloc[VT,26].split(';')) > 1 and len(str(self.__FORMS.iloc[VT,33]).split()) == 1:
                             #Bloco que adiciona valores ao dicionario de acordo com justificada > 1 e injustificada = 1
                             #Verifica se nome e cpf existem
                             if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
@@ -92,11 +92,11 @@ class Gerador_de_faltas:
                                 self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                            
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split(';')) + len(self.__FORMS.iloc[VT,33].split()))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split(";") + self.__FORMS.iloc[VT,33].split()} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split(';')) + len(self.__FORMS.iloc[VT,33].split()))*10)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split(';')) + len(str(self.__FORMS.iloc[VT,33]).split()))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split(";") + str(self.__FORMS.iloc[VT,33]).split()} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split(';')) + len(str(self.__FORMS.iloc[VT,33]).split()))*10)
                         #Decisão que lida com justificada = 1 e injustificada > 1
-                        elif len(self.__FORMS.iloc[VT,26].split()) == 1 and len(self.__FORMS.iloc[VT,33].split(';')) > 1:
+                        elif len(self.__FORMS.iloc[VT,26].split()) == 1 and len(str(self.__FORMS.iloc[VT,33]).split(';')) > 1:
                             #Bloco que adiciona valores ao dicionario de acordo com justificada = 1 e injustificada > 1
                             #Verifica se nome e cpf existem
                             if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
@@ -107,11 +107,11 @@ class Gerador_de_faltas:
                                 self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                        
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split()) + len(self.__FORMS.iloc[VT,33].split(';')))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split() + self.__FORMS.iloc[VT,33].split(";")} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split()) + len(self.__FORMS.iloc[VT,33].split(';')))*10)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split()) + len(str(self.__FORMS.iloc[VT,33]).split(';')))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split() + str(self.__FORMS.iloc[VT,33]).split(";")} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split()) + len(str(self.__FORMS.iloc[VT,33]).split(';')))*10)
                         #Decisão que lida com justificada = 1 e injustificada = 1
-                        elif len(self.__FORMS.iloc[VT,26].split()) == 1 and len(self.__FORMS.iloc[VT,33].split()) == 1:
+                        elif len(self.__FORMS.iloc[VT,26].split()) == 1 and len(str(self.__FORMS.iloc[VT,33]).split()) == 1:
                             #Bloco que adiciona valores ao dicionario de acordo com justificada = 1 e injustificada = 1
                             #Verifica se nome e cpf existem
                             if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
@@ -122,11 +122,11 @@ class Gerador_de_faltas:
                                 self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                          
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split()) + len(self.__FORMS.iloc[VT,33].split()))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split() + self.__FORMS.iloc[VT,33].split()} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split()) + len(self.__FORMS.iloc[VT,33].split()))*10)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split()) + len(str(self.__FORMS.iloc[VT,33]).split()))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split() + str(self.__FORMS.iloc[VT,33]).split()} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split()) + len(str(self.__FORMS.iloc[VT,33]).split()))*10)
                     #Decisão que lida com justificada != vazio e injustificada == vazio
-                    elif str(self.__FORMS.iloc[VT,26]) != 'nan' and str(self.__FORMS.iloc[VT,33]) == 'nan':
+                    elif str(self.__FORMS.iloc[VT,26]) != 'nan' and str(str(self.__FORMS.iloc[VT,33])) == 'nan':
                         #Decisão que lida com justificada > 1
                         if len(self.__FORMS.iloc[VT,26].split(';')) > 1:
                             #Bloco que adiciona valores ao dicionario de acordo com justificada > 1
@@ -158,9 +158,9 @@ class Gerador_de_faltas:
                             self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split()} de {mes[:3]}')
                             self.__dados_VT['valor_total'].append(len(self.__FORMS.iloc[VT,26].split())*10)
                     #Decisão que lida com justificada == vazio e injustificada != vazio
-                    elif str(self.__FORMS.iloc[VT,26]) == 'nan' and str(self.__FORMS.iloc[VT,33]) != 'nan':
+                    elif str(self.__FORMS.iloc[VT,26]) == 'nan' and str(str(self.__FORMS.iloc[VT,33])) != 'nan':
                         #Decisão que verifica se injustificada > 1
-                        if len(self.__FORMS.iloc[VT,33].split(';')) > 1:
+                        if len(str(self.__FORMS.iloc[VT,33]).split(';')) > 1:
                             #Bloco que adiciona valores ao dicionario de acordo com injustificada > 1
                             #Verifica se nome e cpf existem
                             if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
@@ -171,9 +171,9 @@ class Gerador_de_faltas:
                                 self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                    
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,33].split(';')))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,33].split(";"))} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append(len(self.__FORMS.iloc[VT,33].split(';'))*10)
+                            self.__dados_VT['valor_dias'].append(len(str(self.__FORMS.iloc[VT,33]).split(';')))
+                            self.__dados_VT['dias'].append(f'{str(str(self.__FORMS.iloc[VT,33]).split(";"))} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append(len(str(self.__FORMS.iloc[VT,33]).split(';'))*10)
                         else:
                             #Bloco que adiciona valores ao dicionario de acordo com injustificada == 1
                             #Verifica se nome e cpf existem
@@ -185,9 +185,9 @@ class Gerador_de_faltas:
                                 self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
                                 self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))
                                 self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,33].split()))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,33].split())} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append(len(self.__FORMS.iloc[VT,33].split())*10)
+                            self.__dados_VT['valor_dias'].append(len(str(self.__FORMS.iloc[VT,33]).split()))
+                            self.__dados_VT['dias'].append(f'{str(str(self.__FORMS.iloc[VT,33]).split())} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append(len(str(self.__FORMS.iloc[VT,33]).split())*10)
         # Decisão caso seja BT
         else:
             for BE in range(len(self.__FORMS.iloc[:,0])):
