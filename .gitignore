@@ -1,12 +1,7 @@
 **/__pycache__/
-**/Descontos.pdf
-**/Recessos.xlsx
-**/Mre.xlsx
-**/Sce.xlsx
-**/Ciee.xlsx
-**/Forms.xlsx
-**/Tas.xlsx
-**/Emails.xlsx
-**/Modelo.docx
-*.xlsx#
+*.pdf
+*.docx
+*.xlsx
 *.vscode
+*.venv/
+*.pyc

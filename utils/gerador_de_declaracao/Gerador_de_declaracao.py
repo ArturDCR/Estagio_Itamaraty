@@ -28,16 +28,12 @@ class Gerador_de_declaracao:
                         }
 
     def __conversor_de_cpf(self, cpf):
-            if len(cpf) != 11 and cpf[0] != '0' and '.' not in cpf:
-                cpf = '0' + cpf
-                if len(cpf) != 11:
-                    pass
-                else:
-                    return str(cpf)
-            elif len(cpf) != 11:
-                    return str(cpf[:3] + cpf[4:7] + cpf[8:11] + cpf[12:])
-            else:
-                return str(cpf)
+        cpf_limpo = ''.join(filter(str.isdigit, cpf))
+        if len(cpf_limpo) != 11:
+            cpf_limpo = cpf_limpo.zfill(11)
+            return cpf_limpo
+        else:
+            return cpf_limpo
 
     def __gerar_dados(self, cpf):
         for dados in range(len(self.__SCE.iloc[:,6])):
