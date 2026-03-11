@@ -1,11 +1,8 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from tkinter import ttk
-import shutil
 import os
-import subprocess
 import threading
-import time
 
 from ..conferencia_ciee.Conferencia_ciee import Conferencia_ciee
 
@@ -13,6 +10,10 @@ class Interface_conferencia_ciee():
     def __init__(self, root):
         self.__frame_botoes = tk.Frame(root)
         self.__frame_botoes.pack(pady=20)
+
+        self.__caminho_ciee = None
+        self.__caminho_mre = None
+        self.__caminho_sce = None
 
         self.__upload_ciee_button = tk.Button(self.__frame_botoes, text='Upload CIEE', command=lambda: self.__confirm_upload('CIEE'))
         self.__upload_ciee_button.pack(pady=10)
@@ -23,56 +24,61 @@ class Interface_conferencia_ciee():
         self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
         self.__upload_sce_button.pack(pady=10)
 
-        self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Conferência', command= self.__run_analyzer_conferencia_ciee)
+        self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Conferência', command=self.__run_analyzer_conferencia_ciee)
         self.__analyze_button.pack(pady=10)
 
         self.__barra_progresso = ttk.Progressbar(self.__frame_botoes, orient="horizontal", length=300, mode="determinate")
         self.__barra_progresso.pack(pady=20)
 
-        self.__frame_botoes.mainloop()
-
     def __confirm_upload(self, tipo):
-        resposta = messagebox.askyesno("Confirmação", "Caso este arquivo já tenha sido enviado, não é necessário enviá-lo novamente, a menos que seja uma atualização. Deseja enviar um novo?")
+        resposta = messagebox.askyesno("Confirmação", "Deseja selecionar a planilha no seu computador?")
         if resposta:
             self.__upload_file_conferencia_ciee(tipo)
     
     def __upload_file_conferencia_ciee(self, upload_type):
-        file_path = filedialog.askopenfilename()
+        file_path = filedialog.askopenfilename(
+            title=f"Selecione a planilha {upload_type}",
+            filetypes=[("Arquivos Excel", "*.xlsx"), ("Todos os arquivos", "*.*")]
+        )
         if file_path:
-            print(f'Arquivo selecionado para {upload_type}: {file_path}')
-            
-            destination_directory = 'utils/data'
-            
             if upload_type == 'CIEE':
-                new_file_name = 'Ciee.xlsx'
+                self.__caminho_ciee = file_path
             elif upload_type == 'MRE':
-                new_file_name = 'Mre.xlsx'
+                self.__caminho_mre = file_path
             elif upload_type == 'SCE':
-                new_file_name = 'Sce.xlsx'
-            else:
-                new_file_name = os.path.basename(file_path)
-
-            destination_path = os.path.join(destination_directory, new_file_name)
-            shutil.copy(file_path, destination_path)
-            print(f'Arquivo copiado e renomeado para: {destination_path}')
+                self.__caminho_sce = file_path
+                
+            messagebox.showinfo('Sucesso', f'Arquivo {upload_type} carregado:\n{os.path.basename(file_path)}')
     
     def __run_analyzer_conferencia_ciee(self):
-        try:
-            conferencia_ciee = Conferencia_ciee()
-            self.__start_task(conferencia_ciee.iniciar())
-            messagebox.showinfo('Sucesso', 'Verifique sua pasta de Downloads')
-            print('Conferencia CIEE executado com sucesso.')
-        except subprocess.CalledProcessError:
-            messagebox.showerror('Erro', 'Erro ao executar a Conferencia CIEE.')
+        if not (self.__caminho_ciee and self.__caminho_mre and self.__caminho_sce):
+            messagebox.showwarning('Aviso', 'Por favor, faça o Upload das 3 planilhas (CIEE, MRE e SCE) antes de gerar o resultado.')
+            return
+        
+        def tarefa_em_background():
+            try:
+                conferencia_ciee = Conferencia_ciee(self.__caminho_mre, self.__caminho_sce, self.__caminho_ciee)
+                conferencia_ciee.iniciar()
+                messagebox.showinfo('Sucesso', 'Conferência concluída! Verifique sua pasta de Downloads.')
+            except Exception as e:
+                messagebox.showerror('Erro', f'Ocorreu um erro durante a análise: {e}')
+            finally:
+                self.__barra_progresso['value'] = 0
+
+        self.__start_task(tarefa_em_background)
     
     def __start_task(self, func):
         thread = threading.Thread(target=func)
         thread.daemon = True
         thread.start()
 
-        progress = 0
-        while progress < 100:
-            progress += 10
-            self.__barra_progresso['value'] = progress
-            self.__frame_botoes.update_idletasks()
-            time.sleep(1)
+        self.__barra_progresso['value'] = 0
+        def atualizar_barra():
+            if thread.is_alive():
+                if self.__barra_progresso['value'] < 90:
+                    self.__barra_progresso['value'] += 5
+                self.__frame_botoes.after(500, atualizar_barra)
+            else:
+                self.__barra_progresso['value'] = 100
+
+        atualizar_barra()

@@ -3,11 +3,14 @@ import os
 from datetime import datetime
 
 class Conferencia_ciee:
-    def __init__(self):
-        self.__MRE = pd.read_excel(os.path.join('utils/data', 'Mre.xlsx'))
-        self.__SCE = pd.read_excel(os.path.join('utils/data', 'Sce.xlsx'))
-        self.__CIEE = pd.read_excel(os.path.join('utils/data', 'Ciee.xlsx'))
-        self.__EXIT_PATH = os.path.join(os.path.join(os.path.expanduser('~'), 'Downloads'), f"Resultado conferencia CIEE {datetime.now().strftime('%Y_%m_%d')}.xlsx")
+    def __init__(self, caminho_mre, caminho_sce, caminho_ciee):
+        self.__MRE = pd.read_excel(caminho_mre)
+        self.__SCE = pd.read_excel(caminho_sce)
+        self.__CIEE = pd.read_excel(caminho_ciee)
+
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        nome_arquivo = f"Resultado_conferencia_CIEE_{timestamp}.xlsx"
+        self.__EXIT_PATH = os.path.join(os.path.expanduser('~'), 'Downloads', nome_arquivo)
 
         self.__cpf_ciee = []
         self.__cpf_mre = []
@@ -20,12 +23,8 @@ class Conferencia_ciee:
         }
     
     def __conversor_de_cpf(self, cpf):
-        cpf_limpo = ''.join(filter(str.isdigit, cpf))
-        if len(cpf_limpo) != 11:
-            cpf_limpo = cpf_limpo.zfill(11)
-            return cpf_limpo
-        else:
-            return cpf_limpo
+        cpf_limpo = ''.join(filter(str.isdigit, str(cpf)))
+        return cpf_limpo.zfill(11)
             
     def __switch(self, estado, cpf):
         if estado == 'fora da base':
@@ -86,7 +85,9 @@ class Conferencia_ciee:
                 self.__switch('fora da base',d)
 
     def __gerar_saida(self):
-        pd.DataFrame(self.__dados).to_excel(self.__EXIT_PATH, index=False)
+        df_saida = pd.DataFrame(self.__dados)
+        df_saida = df_saida.drop_duplicates(subset=['cpf']) 
+        df_saida.to_excel(self.__EXIT_PATH, index=False)
 
     def __limpar_listas(self):
         for chave in self.__dados:
@@ -96,17 +97,7 @@ class Conferencia_ciee:
         self.__cpf_mre.clear()
         self.__cpf_sce.clear()
     
-    def __limpar_duplicados(self):
-        for k in self.__dados['cpf']:
-            index = self.__dados['cpf'].index(k)
-            if self.__dados['cpf'].count(k) > 1:
-                self.__dados['nome'].pop(index)
-                self.__dados['cpf'].pop(index)
-                self.__dados['estado'].pop(index)
-                self.__limpar_duplicados()
-    
     def iniciar(self):
         self.__gerar_dados()
-        self.__limpar_duplicados()
         self.__gerar_saida()
         self.__limpar_listas()

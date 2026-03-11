@@ -4,27 +4,25 @@ import csv
 import os
 
 class Hob:
-    def __init__(self):
+    def __init__(self, caminho_csv_temporario):
         now = datetime.now()
-        ano = (now.year)
-        mes = (now.month)
-        dia = (now.day)
-        hora = (now.hour)
-        minuto = (now.minute)
-        segundo = (now.second)
+        ano = now.year
+        mes = now.month
+        dia = now.day
+        hora = now.hour
+        minuto = now.minute
+        segundo = now.second
 
         downloads_path = os.path.join(os.path.expanduser("~"), 'Downloads')
         exit_path = os.path.join(downloads_path, 'MacroFPATMOVFIN_V3_%d%02d%02d%02d%02d%02d.mac' % (ano, mes, dia, hora, minuto, segundo))
 
-        f = open(exit_path, 'a') # abre o arquivo para escrever, o 'a' serve para adicionar
-
+        f = open(exit_path, 'a') 
         cabecalho = '''<HAScript name="FPATMOVFINV3" description="" timeout="60000" pausetime="300" promptall="true" blockinput="false" author="marcus.gabaldo" creationdate="04/09/2014 11:51:31" supressclearevents="false" usevars="false" ignorepauseforenhancedtn="true" delayifnotenhancedtn="0" ignorepausetimeforenhancedtn="true">'''
-        f.write(cabecalho) # escreve o cabecalho no arquivo
+        f.write(cabecalho) 
 
-        input_file = open('utils/data/dadosFPATMOVFIN_V3_REF.csv','r',newline='')
+        input_file = open(caminho_csv_temporario, 'r', newline='')
 
         data = csv.reader(input_file)
-
         i = 1
 
         for line in data: # verifica cada linha do arquivo csv
