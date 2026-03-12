@@ -39,7 +39,7 @@ class Interface_gerador_lote():
         self.__entrada_cpf.bind("<Button-1>", self.__limpar_texto_cpf)
         self.__entrada_cpf.bind("<KeyRelease> ", self.__formatar_cpf)
 
-        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__confirm_upload('MRE'))
+        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__upload_file_gerador_lote('MRE'))
         self.__upload_mre_button.pack(pady=10)
 
         self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Análise', command=self.__run_analyzer_gerador_lote)
@@ -73,11 +73,6 @@ class Interface_gerador_lote():
     def __Set_ano(self, *agrs):
         self.__variavel_ano_inicio = self.__variavel_escolha_ano_inicio.get()
         self.__variavel_ano_final = self.__variavel_escolha_ano_final.get()
-
-    def __confirm_upload(self, tipo):
-        resposta = messagebox.askyesno("Confirmação", "Deseja selecionar a planilha no seu computador?")
-        if resposta:
-            self.__upload_file_gerador_lote(tipo)
     
     def __upload_file_gerador_lote(self, upload_type):
         file_path = filedialog.askopenfilename(

@@ -13,7 +13,7 @@ class Interface_declaracao:
 
         self.__caminho_sce = None
 
-        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
+        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_Gerador_de_declaracao('SCE'))
         self.__upload_sce_button.pack(pady=10)
 
         self.__entrada_cpf = tk.Entry(self.__frame_botoes, font=('Arial', 14))
@@ -29,11 +29,6 @@ class Interface_declaracao:
         self.__barra_progresso.pack(pady=20)
 
         self.__analyze_button.bind("<Button-1>", self.__inserir_texto)
-
-    def __confirm_upload(self, tipo):
-        resposta = messagebox.askyesno("Confirmação", "Deseja selecionar a planilha no seu computador?")
-        if resposta:
-            self.__upload_file_Gerador_de_declaracao(tipo)
     
     def __inserir_texto(self, event):
         if self.__entrada_cpf.get() == "":

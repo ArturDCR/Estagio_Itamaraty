@@ -15,13 +15,13 @@ class Interface_conferencia_ciee():
         self.__caminho_mre = None
         self.__caminho_sce = None
 
-        self.__upload_ciee_button = tk.Button(self.__frame_botoes, text='Upload CIEE', command=lambda: self.__confirm_upload('CIEE'))
+        self.__upload_ciee_button = tk.Button(self.__frame_botoes, text='Upload CIEE', command=lambda: self.__upload_file_conferencia_ciee('CIEE'))
         self.__upload_ciee_button.pack(pady=10)
 
-        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__confirm_upload('MRE'))
+        self.__upload_mre_button = tk.Button(self.__frame_botoes, text='Upload MRE', command=lambda: self.__upload_file_conferencia_ciee('MRE'))
         self.__upload_mre_button.pack(pady=10)
 
-        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__confirm_upload('SCE'))
+        self.__upload_sce_button = tk.Button(self.__frame_botoes, text='Upload SCE', command=lambda: self.__upload_file_conferencia_ciee('SCE'))
         self.__upload_sce_button.pack(pady=10)
 
         self.__analyze_button = tk.Button(self.__frame_botoes, text='Resultado da Conferência', command=self.__run_analyzer_conferencia_ciee)
@@ -29,11 +29,6 @@ class Interface_conferencia_ciee():
 
         self.__barra_progresso = ttk.Progressbar(self.__frame_botoes, orient="horizontal", length=300, mode="determinate")
         self.__barra_progresso.pack(pady=20)
-
-    def __confirm_upload(self, tipo):
-        resposta = messagebox.askyesno("Confirmação", "Deseja selecionar a planilha no seu computador?")
-        if resposta:
-            self.__upload_file_conferencia_ciee(tipo)
     
     def __upload_file_conferencia_ciee(self, upload_type):
         file_path = filedialog.askopenfilename(
