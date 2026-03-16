@@ -34,43 +34,12 @@ class Gerador_Analise_Faltas:
         cpf_limpo = ''.join(filter(str.isdigit, str(cpf)))
         return cpf_limpo.zfill(11)
 
-    def __swicth(self, aux):
-        # Formatador de valores monetários para a Macro Hob
+    def __switch(self, aux):
         aux_str = str(aux)
         if '.' in aux_str:
-            if len(aux_str.split('.')[-1]) == 2:
-                return f'000000{aux_str.replace(".",",")}'
-            elif len(aux_str.split('.')[-1]) == 3:
-                return f'00000{aux_str.replace(".",",")}'
-            elif len(aux_str.split('.')[-1]) == 4:
-                return f'0000{aux_str.replace(".",",")}'
-            elif len(aux_str.split('.')[-1]) == 5:
-                return f'000{aux_str.replace(".",",")}'
-            elif len(aux_str.split('.')[-1]) == 6:
-                return f'00{aux_str.replace(".",",")}'
-            elif len(aux_str.split('.')[-1]) == 7:
-                return f'0{aux_str.replace(".",",")}'
-            elif len(aux_str.split('.')[-1]) == 8:
-                return f'{aux_str.replace(".",",")}'
-            else:
-                return aux_str.replace(".",",")
+            return aux_str.replace(".",",")
         else:
-            if len(aux_str) == 2:
-                return f'000000{aux_str},00'
-            elif len(aux_str) == 3:
-                return f'00000{aux_str},00'
-            elif len(aux_str) == 4:
-                return f'0000{aux_str},00'
-            elif len(aux_str) == 5:
-                return f'000{aux_str},00'
-            elif len(aux_str) == 6:
-                return f'00{aux_str},00'
-            elif len(aux_str) == 7:
-                return f'0{aux_str},00'
-            elif len(aux_str) == 8:
-                return f'{aux_str},00'
-            else:
-                return f'{aux_str},00'
+            return f'{aux_str},00'
 
     def __inserir_siape(self, cpf, escolha):
         cpfs = []
@@ -303,7 +272,7 @@ class Gerador_Analise_Faltas:
         with open(caminho_csv_temp, 'w', encoding='utf-8') as f_csv:
             for index, row in df_faltas.iterrows():
                 if str(row['cpf']) != 'Não encontrado' and str(row['siape']) != 'xxx':
-                    valor_formatado = self.__swicth(row['valor_total'])
+                    valor_formatado = self.__switch(row['valor_total'])
                     dias_formatados = str(row['dias']).replace('[','').replace(']','')
                     rubrica = '82695' if escolha == 'VT' else '83172'
                     
@@ -311,7 +280,7 @@ class Gerador_Analise_Faltas:
                     f_csv.write(linha)
 
         try:
-            hob = Hob(caminho_csv_temp)
+            hob = Hob(caminho_csv_temp, escolha)
         finally:
             if os.path.exists(caminho_csv_temp):
                 os.remove(caminho_csv_temp)
