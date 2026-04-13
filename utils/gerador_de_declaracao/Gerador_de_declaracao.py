@@ -6,7 +6,6 @@ import datetime
 from utils.gerenciador_caminhos.gerenciador_caminhos import GerenciadorCaminhos
 
 class Gerador_de_declaracao:
-    # Recebendo a planilha via parâmetro (Categoria 2)
     def __init__(self, caminho_planilha_sce):
         self.__caminho_modelo = GerenciadorCaminhos.obter_caminho_recurso(os.path.join('utils', 'data', 'Modelo.docx'))
         
