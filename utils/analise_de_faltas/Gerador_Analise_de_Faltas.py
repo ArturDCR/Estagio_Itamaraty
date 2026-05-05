@@ -62,151 +62,151 @@ class Gerador_Analise_Faltas:
     def __gerar_dados(self, escolha, mes, ano):
         if escolha == 'VT':
             for VT in range(len(self.__FORMS.iloc[:,0])):
-                if str(self.__FORMS.iloc[VT,8]).split()[0] == mes and str(self.__FORMS.iloc[VT,8]).split()[-1] == ano:
-                    if str(self.__FORMS.iloc[VT,26]) != 'nan' and str(str(self.__FORMS.iloc[VT,33])) != 'nan':
-                        if len(self.__FORMS.iloc[VT,26].split(';')) > 1 and len(str(str(self.__FORMS.iloc[VT,33])).split(';')) > 1:
-                            if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,14]))
+                if str(self.__FORMS.iloc[VT,5]).split()[0] == mes and str(self.__FORMS.iloc[VT,5]).split()[-1] == ano:
+                    if str(self.__FORMS.iloc[VT,10]) != 'nan' and str(str(self.__FORMS.iloc[VT,12])) != 'nan':
+                        if len(self.__FORMS.iloc[VT,10].split(';')) > 1 and len(str(str(self.__FORMS.iloc[VT,12])).split(';')) > 1:
+                            if str(self.__FORMS.iloc[VT,6]) == 'Não Encontrado':
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,8]))
                                 self.__dados_VT['cpf'].append('Não encontrado')
                                 self.__dados_VT['siape'].append('xxx')
                             else:
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
-                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))         
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split(';')) + len(str(self.__FORMS.iloc[VT,33]).split(';')))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split(";")} e {str(self.__FORMS.iloc[VT,33]).split(";")} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split(';')) + len(str(self.__FORMS.iloc[VT,33]).split(';')))*10)
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,6]).split(' | ')[0])
+                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]))         
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]),escolha)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,10].split(';')) + len(str(self.__FORMS.iloc[VT,12]).split(';')))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,10]).split(";")} e {str(self.__FORMS.iloc[VT,12]).split(";")} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,10].split(';')) + len(str(self.__FORMS.iloc[VT,12]).split(';')))*10)
                         
-                        elif len(self.__FORMS.iloc[VT,26].split(';')) > 1 and len(str(self.__FORMS.iloc[VT,33]).split()) == 1:
-                            if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,14]))
+                        elif len(self.__FORMS.iloc[VT,10].split(';')) > 1 and len(str(self.__FORMS.iloc[VT,12]).split()) == 1:
+                            if str(self.__FORMS.iloc[VT,6]) == 'Não Encontrado':
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,8]))
                                 self.__dados_VT['cpf'].append('Não encontrado')
                                 self.__dados_VT['siape'].append('xxx')
                             else:
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
-                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                            
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split(';')) + len(str(self.__FORMS.iloc[VT,33]).split()))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split(";")} e {str(self.__FORMS.iloc[VT,33]).split()} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split(';')) + len(str(self.__FORMS.iloc[VT,33]).split()))*10)
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,6]).split(' | ')[0])
+                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]))                            
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]),escolha)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,10].split(';')) + len(str(self.__FORMS.iloc[VT,12]).split()))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,10]).split(";")} e {str(self.__FORMS.iloc[VT,12]).split()} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,10].split(';')) + len(str(self.__FORMS.iloc[VT,12]).split()))*10)
                         
-                        elif len(self.__FORMS.iloc[VT,26].split()) == 1 and len(str(self.__FORMS.iloc[VT,33]).split(';')) > 1:
-                            if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,14]))
+                        elif len(self.__FORMS.iloc[VT,10].split()) == 1 and len(str(self.__FORMS.iloc[VT,12]).split(';')) > 1:
+                            if str(self.__FORMS.iloc[VT,6]) == 'Não Encontrado':
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,8]))
                                 self.__dados_VT['cpf'].append('Não encontrado')
                                 self.__dados_VT['siape'].append('xxx')
                             else:
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
-                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                        
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split()) + len(str(self.__FORMS.iloc[VT,33]).split(';')))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split()} e {str(self.__FORMS.iloc[VT,33]).split(";")} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split()) + len(str(self.__FORMS.iloc[VT,33]).split(';')))*10)
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,6]).split(' | ')[0])
+                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]))                        
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]),escolha)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,10].split()) + len(str(self.__FORMS.iloc[VT,12]).split(';')))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,10]).split()} e {str(self.__FORMS.iloc[VT,12]).split(";")} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,10].split()) + len(str(self.__FORMS.iloc[VT,12]).split(';')))*10)
                         
-                        elif len(self.__FORMS.iloc[VT,26].split()) == 1 and len(str(self.__FORMS.iloc[VT,33]).split()) == 1:
-                            if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,14]))
+                        elif len(self.__FORMS.iloc[VT,10].split()) == 1 and len(str(self.__FORMS.iloc[VT,12]).split()) == 1:
+                            if str(self.__FORMS.iloc[VT,6]) == 'Não Encontrado':
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,8]))
                                 self.__dados_VT['cpf'].append('Não encontrado')
                                 self.__dados_VT['siape'].append('xxx')
                             else:
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
-                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                          
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split()) + len(str(self.__FORMS.iloc[VT,33]).split()))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split()} e {str(self.__FORMS.iloc[VT,33]).split()} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,26].split()) + len(str(self.__FORMS.iloc[VT,33]).split()))*10)
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,6]).split(' | ')[0])
+                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]))                          
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]),escolha)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,10].split()) + len(str(self.__FORMS.iloc[VT,12]).split()))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,10]).split()} e {str(self.__FORMS.iloc[VT,12]).split()} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append((len(self.__FORMS.iloc[VT,10].split()) + len(str(self.__FORMS.iloc[VT,12]).split()))*10)
                     
-                    elif str(self.__FORMS.iloc[VT,26]) != 'nan' and str(str(self.__FORMS.iloc[VT,33])) == 'nan':
-                        if len(self.__FORMS.iloc[VT,26].split(';')) > 1:
-                            if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,14]))
+                    elif str(self.__FORMS.iloc[VT,10]) != 'nan' and str(str(self.__FORMS.iloc[VT,12])) == 'nan':
+                        if len(self.__FORMS.iloc[VT,10].split(';')) > 1:
+                            if str(self.__FORMS.iloc[VT,6]) == 'Não Encontrado':
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,8]))
                                 self.__dados_VT['cpf'].append('Não encontrado')
                                 self.__dados_VT['siape'].append('xxx')
                             else:
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
-                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                         
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split(';')))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split(";")} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append(len(self.__FORMS.iloc[VT,26].split(';'))*10)
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,6]).split(' | ')[0])
+                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]))                         
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]),escolha)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,10].split(';')))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,10]).split(";")} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append(len(self.__FORMS.iloc[VT,10].split(';'))*10)
                         else:
-                            if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,14]))
+                            if str(self.__FORMS.iloc[VT,6]) == 'Não Encontrado':
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,8]))
                                 self.__dados_VT['cpf'].append('Não encontrado')
                                 self.__dados_VT['siape'].append('xxx')
                             else:
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
-                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                      
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,26].split()))
-                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,26]).split()} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append(len(self.__FORMS.iloc[VT,26].split())*10)
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,6]).split(' | ')[0])
+                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]))                      
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]),escolha)
+                            self.__dados_VT['valor_dias'].append(len(self.__FORMS.iloc[VT,10].split()))
+                            self.__dados_VT['dias'].append(f'{str(self.__FORMS.iloc[VT,10]).split()} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append(len(self.__FORMS.iloc[VT,10].split())*10)
                     
-                    elif str(self.__FORMS.iloc[VT,26]) == 'nan' and str(str(self.__FORMS.iloc[VT,33])) != 'nan':
-                        if len(str(self.__FORMS.iloc[VT,33]).split(';')) > 1:
-                            if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,14]))
+                    elif str(self.__FORMS.iloc[VT,10]) == 'nan' and str(str(self.__FORMS.iloc[VT,12])) != 'nan':
+                        if len(str(self.__FORMS.iloc[VT,12]).split(';')) > 1:
+                            if str(self.__FORMS.iloc[VT,6]) == 'Não Encontrado':
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,8]))
                                 self.__dados_VT['cpf'].append('Não encontrado')
                                 self.__dados_VT['siape'].append('xxx')
                             else:
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
-                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))                    
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(str(self.__FORMS.iloc[VT,33]).split(';')))
-                            self.__dados_VT['dias'].append(f'{str(str(self.__FORMS.iloc[VT,33]).split(";"))} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append(len(str(self.__FORMS.iloc[VT,33]).split(';'))*10)
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,6]).split(' | ')[0])
+                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]))                    
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]),escolha)
+                            self.__dados_VT['valor_dias'].append(len(str(self.__FORMS.iloc[VT,12]).split(';')))
+                            self.__dados_VT['dias'].append(f'{str(str(self.__FORMS.iloc[VT,12]).split(";"))} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append(len(str(self.__FORMS.iloc[VT,12]).split(';'))*10)
                         else:
-                            if str(self.__FORMS.iloc[VT,11]) == 'Não Encontrado':
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,14]))
+                            if str(self.__FORMS.iloc[VT,6]) == 'Não Encontrado':
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,8]))
                                 self.__dados_VT['cpf'].append('Não encontrado')
                                 self.__dados_VT['siape'].append('xxx')
                             else:
-                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,11]).split(' | ')[0])
-                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]))
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,11]).split(' | ')[-1]),escolha)
-                            self.__dados_VT['valor_dias'].append(len(str(self.__FORMS.iloc[VT,33]).split()))
-                            self.__dados_VT['dias'].append(f'{str(str(self.__FORMS.iloc[VT,33]).split())} de {mes[:3]}')
-                            self.__dados_VT['valor_total'].append(len(str(self.__FORMS.iloc[VT,33]).split())*10)
+                                self.__dados_VT['nome'].append(str(self.__FORMS.iloc[VT,6]).split(' | ')[0])
+                                self.__dados_VT['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]))
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[VT,6]).split(' | ')[-1]),escolha)
+                            self.__dados_VT['valor_dias'].append(len(str(self.__FORMS.iloc[VT,12]).split()))
+                            self.__dados_VT['dias'].append(f'{str(str(self.__FORMS.iloc[VT,12]).split())} de {mes[:3]}')
+                            self.__dados_VT['valor_total'].append(len(str(self.__FORMS.iloc[VT,12]).split())*10)
         else:
             for BE in range(len(self.__FORMS.iloc[:,0])):
-                if str(self.__FORMS.iloc[BE,8]).split()[0] == mes and str(self.__FORMS.iloc[BE,8]).split()[-1] == ano:
-                    if str(self.__FORMS.iloc[BE,33]) != 'nan':
-                        if len(str(self.__FORMS.iloc[BE,33]).split(';')) > 1:
-                            if str(self.__FORMS.iloc[BE,11]) == 'Não Encontrado':
-                                self.__dados_BE['nome'].append(str(self.__FORMS.iloc[BE,14]))
+                if str(self.__FORMS.iloc[BE,5]).split()[0] == mes and str(self.__FORMS.iloc[BE,5]).split()[-1] == ano:
+                    if str(self.__FORMS.iloc[BE,12]) != 'nan':
+                        if len(str(self.__FORMS.iloc[BE,12]).split(';')) > 1:
+                            if str(self.__FORMS.iloc[BE,6]) == 'Não Encontrado':
+                                self.__dados_BE['nome'].append(str(self.__FORMS.iloc[BE,8]))
                                 self.__dados_BE['cpf'].append('Não encontrado')
                                 self.__dados_BE['siape'].append('xxx')
                                 self.__dados_BE['valor_total'].append('Indisponivel')
                                 self.__dados_BE['salario'].append('Indisponivel')
                             else:
-                                self.__dados_BE['nome'].append(str(self.__FORMS.iloc[BE,11]).split(' | ')[0])
-                                self.__dados_BE['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,11]).split(' | ')[-1]))
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,11]).split(' | ')[-1]),escolha)
+                                self.__dados_BE['nome'].append(str(self.__FORMS.iloc[BE,6]).split(' | ')[0])
+                                self.__dados_BE['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,6]).split(' | ')[-1]))
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,6]).split(' | ')[-1]),escolha)
                                 for salario in range(len(self.__SCE.iloc[:,22])):
-                                    if self.__conversor_de_cpf(str(self.__SCE.iloc[salario,6])) == self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,11]).split(' | ')[-1]):
-                                        self.__dados_BE['valor_total'].append(round(len(self.__FORMS.iloc[BE,33].split(';'))*(float(str(self.__SCE.iloc[salario,22]).replace(',','.'))/30),2))
+                                    if self.__conversor_de_cpf(str(self.__SCE.iloc[salario,6])) == self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,6]).split(' | ')[-1]):
+                                        self.__dados_BE['valor_total'].append(round(len(self.__FORMS.iloc[BE,12].split(';'))*(float(str(self.__SCE.iloc[salario,22]).replace(',','.'))/30),2))
                                         self.__dados_BE['salario'].append(str(self.__SCE.iloc[salario,22]))
                                         break
-                            self.__dados_BE['valor_dias'].append(len(self.__FORMS.iloc[BE,33].split(';')))
-                            self.__dados_BE['dias'].append(f'{str(self.__FORMS.iloc[BE,33].split(";"))} de {mes[:3]}')
+                            self.__dados_BE['valor_dias'].append(len(self.__FORMS.iloc[BE,12].split(';')))
+                            self.__dados_BE['dias'].append(f'{str(self.__FORMS.iloc[BE,12].split(";"))} de {mes[:3]}')
                         else:
-                            if str(self.__FORMS.iloc[BE,11]) == 'NÃO ENCONTRADO':
-                                self.__dados_BE['nome'].append(str(self.__FORMS.iloc[BE,14]))
+                            if str(self.__FORMS.iloc[BE,6]) == 'NÃO ENCONTRADO':
+                                self.__dados_BE['nome'].append(str(self.__FORMS.iloc[BE,8]))
                                 self.__dados_BE['cpf'].append('Não encontrado')
                                 self.__dados_BE['siape'].append('xxx')
                                 self.__dados_BE['valor_total'].append('Indisponivel')
                                 self.__dados_BE['salario'].append('Indisponivel')
                             else:
-                                self.__dados_BE['nome'].append(str(self.__FORMS.iloc[BE,11]).split(' | ')[0])
-                                self.__dados_BE['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,11]).split(' | ')[-1]))
-                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,11]).split(' | ')[-1]),escolha)
+                                self.__dados_BE['nome'].append(str(self.__FORMS.iloc[BE,6]).split(' | ')[0])
+                                self.__dados_BE['cpf'].append(self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,6]).split(' | ')[-1]))
+                                self.__inserir_siape(self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,6]).split(' | ')[-1]),escolha)
                                 for salario in range(len(self.__SCE.iloc[:,22])):
-                                    if self.__conversor_de_cpf(str(self.__SCE.iloc[salario,6])) == self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,11]).split(' | ')[-1]):
-                                        self.__dados_BE['valor_total'].append(round(len(str(self.__FORMS.iloc[BE,33]).split())*(float(str(self.__SCE.iloc[salario,22]).replace(',','.'))/30),2))
+                                    if self.__conversor_de_cpf(str(self.__SCE.iloc[salario,6])) == self.__conversor_de_cpf(str(self.__FORMS.iloc[BE,6]).split(' | ')[-1]):
+                                        self.__dados_BE['valor_total'].append(round(len(str(self.__FORMS.iloc[BE,12]).split())*(float(str(self.__SCE.iloc[salario,22]).replace(',','.'))/30),2))
                                         self.__dados_BE['salario'].append(str(self.__SCE.iloc[salario,22]))
                                         break
-                            self.__dados_BE['valor_dias'].append(len(str(self.__FORMS.iloc[BE,33]).split()))
-                            self.__dados_BE['dias'].append(f'{str(self.__FORMS.iloc[BE,33]).split()} de {mes[:3]}')
+                            self.__dados_BE['valor_dias'].append(len(str(self.__FORMS.iloc[BE,12]).split()))
+                            self.__dados_BE['dias'].append(f'{str(self.__FORMS.iloc[BE,12]).split()} de {mes[:3]}')
 
         # Limpeza de dados (Inativos, Não encontrados e Duplicados)
         for deletar_vt in range(5):
